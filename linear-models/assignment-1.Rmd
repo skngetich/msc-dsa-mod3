@@ -1,0 +1,106 @@
+---
+title: "R Notebook"
+output: pdf_document
+
+  
+---
+```{r}
+knitr::opts_chunk$set(fig.width=6, fig.height=6) 
+
+```
+
+# Assignment 1
+
+## Pre-requisite
+### install package
+```{r message = FALSE,warning = FALSE}
+#install.packages("readxl")
+#install.packages('dplyr')
+```
+
+### load package
+```{r}
+# Clear variables
+rm(list=ls())
+
+library(readxl)
+library(dplyr)
+
+```
+### Load dataset
+
+```{r}
+
+# Load Dataset
+dataset <- read_excel("dataset/Data1.xlsx")
+
+salaries = dataset$Salaries
+experience = dataset$`Years of Experience`
+age = dataset$Age
+gender = dataset$Gender
+region = dataset$Region
+
+```
+
+## Exploratory Data Analysis
+View the summary of each numeric column
+
+```{r}
+summary(dataset)
+```
+### Salaries
+```{r}
+summary(salaries)
+boxplot(salaries)
+hist(salaries)
+```
+From the histogram and the box plots, the data show the following:  
+1. The salaries data is continuous  
+2. A lot of people are earning 3000 to 3200.  
+3. Salaries is negative skewed because the mean is less than the median
+
+### Age
+```{R}
+hist(age)
+boxplot(age)
+```
+
+Age is negatively skewed with people 30 to 32 highly represented.
+
+```{r}
+hist(experience)
+```
+
+This data represent people have more than 10 years experience
+
+```{r}
+boxplot(age~gender,
+        main="Age distribution by Gender")
+```
+```{r}
+boxplot(salaries~gender,
+        main="Age distribution by Gender")
+```
+
+```{r}
+
+boxplot(salaries~region, main="Salary Disribution per Region")
+```
+Region 2 has the highest salary variation
+
+
+```{R}
+
+plot(data.frame(salaries,age,region,experience))
+```
+Salaries and experience are correlated this means that experience is a reasonable predictor of size
+
+```{r}
+simple.regression = lm(formula= salaries~experience)
+summary(simple.regression)
+```
+```{r}
+lm1 =  lm(dataset,formula = Salaries~.)
+summary(lm1)
+```
+

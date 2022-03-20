@@ -1,0 +1,35 @@
+---
+title: "R Notebook"
+output: pdf_document
+---
+
+# Assignment 1
+
+## Pre-requisite
+### install package
+```{r message = FALSE,warning = FALSE}
+#install.packages("readxl")
+```
+
+### load package
+```{r}
+# Clear variables
+rm(list=ls())
+
+library(readxl)
+```
+### Load dataset
+
+```{r}
+
+# Load Dataset
+dataset <- read_excel("dataset/Data1.xlsx")
+```
+s 
+
+
+```{r}
+hist(dataset$`Years of Experience`)
+
+```
+
