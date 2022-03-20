@@ -1,3 +1,7 @@
+#Output files
+*.aux
+*.out
+*.log
 # History files
 .Rhistory
 .Rapp.history
