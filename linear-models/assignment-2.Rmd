@@ -34,3 +34,11 @@ library(dplyr)
 dataset <- read_excel("dataset/Dataset2.xlsx")
 
 ```
+
+
+
+```{r}
+
+plot(dataset)
+```
+
