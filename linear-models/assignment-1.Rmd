@@ -1,25 +1,30 @@
 ---
-title: "R Notebook"
-output: pdf_document
-
-  
+title: "Assignment 1"
+author: "79546 - Stephen K. Ng'etich"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
 ---
-```{r}
-knitr::opts_chunk$set(fig.width=6, fig.height=6) 
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(fig.width=5, fig.height=5) 
 
 ```
 
-# Assignment 1
+# Pre-requisite
 
-## Pre-requisite
-### install package
+## Install package
+
 ```{r message = FALSE,warning = FALSE}
 #install.packages("readxl")
 #install.packages('dplyr')
 ```
 
-### load package
-```{r}
+## Load package
+
+```{r message = FALSE,warning = FALSE}
 # Clear variables
 rm(list=ls())
 
@@ -27,7 +32,8 @@ library(readxl)
 library(dplyr)
 
 ```
-### Load dataset
+
+## Load dataset
 
 ```{r}
 
@@ -42,24 +48,28 @@ region = dataset$Region
 
 ```
 
-## Exploratory Data Analysis
-View the summary of each numeric column
+# Exploratory Data Analysis
+
+View the summary statistics of each numeric column
 
 ```{r}
 summary(dataset)
 ```
-### Salaries
+
+## Salaries Distribution
+
 ```{r}
-summary(salaries)
 boxplot(salaries)
 hist(salaries)
 ```
-From the histogram and the box plots, the data show the following:  
-1. The salaries data is continuous  
-2. A lot of people are earning 3000 to 3200.  
+
+From the histogram and the box plots, the data show the following:\
+1. The salaries data is continuous\
+2. A lot of people are earning 3000 to 3200.\
 3. Salaries is negative skewed because the mean is less than the median
 
-### Age
+## Age Distribution
+
 ```{R}
 hist(age)
 boxplot(age)
@@ -67,40 +77,51 @@ boxplot(age)
 
 Age is negatively skewed with people 30 to 32 highly represented.
 
+## Experience Distribution
+
 ```{r}
 hist(experience)
 ```
 
-This data represent people have more than 10 years experience
+This data represent people have more than `10 years experience`
+
+## Age Distribution by Gender
 
 ```{r}
 boxplot(age~gender,
-        main="Age distribution by Gender")
+        main="Age Distribution by Gender")
 ```
+
 ```{r}
 boxplot(salaries~gender,
-        main="Age distribution by Gender")
+        main="Salary distribution by Gender")
 ```
+
+## Salary Distribution per Region
 
 ```{r}
 
 boxplot(salaries~region, main="Salary Disribution per Region")
 ```
+
 Region 2 has the highest salary variation
 
+## Correlation among the variables
 
 ```{R}
 
 plot(data.frame(salaries,age,region,experience))
 ```
-Salaries and experience are correlated this means that experience is a reasonable predictor of size
+
+Salaries, age and experience are correlated this means that experience is a reasonable predictor of salaries
+
+# Model Estimation
 
 ```{r}
-simple.regression = lm(formula= salaries~experience)
-summary(simple.regression)
-```
-```{r}
-lm1 =  lm(dataset,formula = Salaries~.)
+lm1 =  lm(formula= salaries~experience+age)
 summary(lm1)
 ```
 
+**Years of Experience** is a good predictor of salaries since the p-value is less than 0.05
+
+\$\$Salaries = 1679.855 , + , 91`Years of experience`\$\$
