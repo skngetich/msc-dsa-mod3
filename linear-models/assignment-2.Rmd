@@ -13,17 +13,15 @@ knitr::opts_chunk$set(fig.width=6, fig.height=6)
 
 ```
 
-# Assignment 1
-
-## Pre-requisite
-### install package
+# Pre-requisite
+## install package
 ```{r message = FALSE,warning = FALSE}
 #install.packages("readxl")
 #install.packages('dplyr')
 ```
 
-### load package
-```{r}
+## load package
+```{r message = FALSE,warning = FALSE}
 # Clear variables
 rm(list=ls())
 
@@ -31,7 +29,7 @@ library(readxl)
 library(dplyr)
 
 ```
-### Load dataset
+## Load dataset
 
 ```{r}
 
@@ -40,7 +38,13 @@ dataset <- read_excel("dataset/Dataset2.xlsx")
 
 ```
 
+# Exploratory Data Analysis
 
+## Summary statistic
+
+```{r}
+summary(dataset)
+```
 
 ```{r}
 
