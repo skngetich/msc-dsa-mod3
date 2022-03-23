@@ -40,6 +40,14 @@ dataset <- read_excel("dataset/Dataset2.xlsx")
 
 # Exploratory Data Analysis
 
+Convert `Region` column data type to `factor` 
+```{r}
+dataset$Region <- as.factor(dataset$Region)
+```
+
+
+
+
 ## Summary statistic
 
 ```{r}
@@ -49,5 +57,10 @@ summary(dataset)
 ```{r}
 
 plot(dataset)
+```
+```{r}
+
+res <- cor(dataset)
+round(res, 2)
 ```
 

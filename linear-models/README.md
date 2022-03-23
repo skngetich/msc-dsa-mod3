@@ -9,3 +9,6 @@ Also known as the `dependent` or `outcome variable`, its value is predicted or i
 **Example 1**  
 
 A team of veterinarians wants to compare the effectiveness of two fertility treatments for pandas in captivity. The two treatments are in-vitro fertilization and male fertility medications. This experiment has one explanatory variable: type of fertility treatment. The response variable is a measure of fertility rate.
+
+
+`Factor variables` are categorical variables that can be either numeric or string variables. There are a number of advantages to converting categorical variables to factor variables.
