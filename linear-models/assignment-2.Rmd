@@ -28,6 +28,9 @@ rm(list=ls())
 library(readxl)
 library(dplyr)
 library(tidyverse)
+library(lattice)
+library(leaps)
+library(MASS)
 
 ```
 ## Load dataset
@@ -61,19 +64,44 @@ plot(dataset)
 ```
 [Interprating multidimention plot]
 
-## Model selection
-### Build the linear model
+# Model selection
+## Build the linear model  
 
 ```{r}
 power_lm_model = lm(Power~ .,data=dataset)
 summary(power_lm_model)
 ```
-From the summary, Homes
-https://jbhender.github.io/Stats506/F17/Projects/Group21_Model_Selection.html
-
+From the summary, Homes show coefficient of Rates are `NA` this means that it does not add any information to the model.
 
 The following methods are used for model selection  
-1. Stepwise regression
+1. Stepwise regression  
 2. Akaike information criterion (AIC)
 
-### Stepwise Regression
+## Stepwise Regression
+
+```{r}
+formula(power_lm_model)
+```
+```{r}
+dataset1 = subset(dataset,select = -c(Rates))
+
+power_lm_model =  lm(Power~ ., data=dataset1)
+summary(power_lm_model)
+```
+
+
+```{r}
+modelfoward =  stepAIC(power_lm_model,direction="forward",trace = FALSE)
+step(modelfoward)
+```
+
+```{r}
+modelfoward =  stepAIC(power_lm_model,direction="backward",trace = FALSE)
+step(modelfoward)
+```
+
+```{r}
+modelfoward =  stepAIC(power_lm_model,direction="both",trace = FALSE)
+step(modelfoward)
+```
+
