@@ -1,0 +1,110 @@
+---
+title: "LINEAR MODELS ASSIGNMENT TWO"
+author: ""
+date: "3/3/2022"
+output:
+  pdf_document: default
+  html_document: default
+fontsize: 12pt
+toc: yes
+toc_depth: 4
+---
+\newpage
+```{r, echo = FALSE}
+
+#library(dplyr)
+#library(tidyverse)
+#library(caret)
+library(readxl)
+library(lattice)
+library(leaps)
+library(MASS)
+```
+
+# EXPLORATORY DATA ANALYSIS
+## SUMMARY STATISTICS
+```{r,echo=FALSE}
+data = read_excel("dataset/Dataset2.xlsx")
+summary(data)
+```
+
+The table above summarizes the summary statistics of the data.
+
+## CORRELATION ANALYSIS
+```{r,echo=FALSE}
+cor(data)
+```
+## Interpretation
+On observing the correlation between all the variables with each other, it was found that a problem of  multicollinearity would arise given the high correlation between Rates and the independent variables: homes,time,and sequence. 
+
+The variable Homes was thus dropped since it had the highest correlation with Rates and would thus lead to the multicollinarity problem. The variables considered as independent variables for the model were: time, region, sequence and rates.
+
+
+```{r,echo=FALSE}
+data$Region2 = factor(data$Region, labels =c(1,2))
+
+```
+
+
+```{r,echo=FALSE}
+data = data[-c(4,3)]
+```
+
+# MODELLING
+
+```{r,echo=FALSE}
+model = lm(Power~Time+Region2+Sequence+Rates, data = data)
+summary(model)
+```
+On estimating the full model, it was found that all independent variables apart from Time statistically influenced the power variable.
+
+The model obtained is summarized by the equation:
+$$Power = -6.86955  + -3.32635 \text{Region}+  0.54034 \text{Sequence}+1.70436  \text{Rates}$$
+
+## FOWARD VARIABLE SELECTION
+```{r,echo=FALSE}
+modelfoward =  stepAIC(model,direction="forward",trace = FALSE)
+step(modelfoward)
+```
+### Interpretation
+From the foward variable selection approach, the variables that best explain the power variable are region, sequence and rates. Their variable coefficients have p-values which are below the 0.05 level of significance and thus deemed statistically significant.
+
+On observing the f statistic, all the selected predictor variables are statistically significant since the p-value of the F-test is below the 0.05 level of significance.
+
+The equation capturing this relationship is:
+$$ Power = -6.4732  + -3.6797\text{Region}+ 0.5827\text{Sequence}+1.8798  \text{Rates}$$
+
+## MIXED VARIABLE SELECTION
+
+```{r,echo=FALSE}
+modelmix =  stepAIC(model,direction="both",trace = FALSE)
+step(modelmix)
+```
+### Interpretation
+From the mixed variable selection approach, the variables that best explain the power variable are region, sequence and rates. Their variable coefficients have p-values which are below the 0.05 level of significance and thus deemed statistically significant.
+
+On observing the f statistic, all the selected predictor variables are statitsically significant since the p-value of the F-test is below the 0.05 level of significance.
+
+The equation capturing this relationship is:
+$$ Power = -6.473 + -3.6797\text{Region}+0.58268\text{Sequence}+1.87976\text{Rates}$$
+
+## BACKWARD VARIABLE SELECTION
+
+
+```{r,echo=FALSE}
+modelback =  stepAIC(model,direction="backward",trace = FALSE)
+step(modelback)
+```
+### Interpretation
+From the above backward variable selection approach, the variables that best explain the power variable are region, sequence and rates. Their variable coefficients have p-values which are below the 0.05 level of significance and thus deemed statistically significant.
+
+The equation capturing this relationship is:
+$$ Power = -6.473 + -3.6797\text{Region}+0.58268\text{Sequence}+1.8798\text{Rates}$$
+
+# CONCLUSION
+The model chosen by all 3 criteria had same lowest AIC of 151.95.
+
+The final model obtained was:
+
+$$ Power = -6.473 + -3.6797\text{Region}+0.58268\text{Sequence}+1.8798\text{Rates}$$
+

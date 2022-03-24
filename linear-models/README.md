@@ -12,3 +12,15 @@ A team of veterinarians wants to compare the effectiveness of two fertility trea
 
 
 `Factor variables` are categorical variables that can be either numeric or string variables. There are a number of advantages to converting categorical variables to factor variables.
+
+
+## Model Selection
+
+It is a process of selecting a model from a set of candidate models.
+
+It can either be implicit or explicit in the following ways:
+1.Hypothesis tests require selecting between a null hypothesis and alternative hypothesis model.  
+2.An auto-regressive model requires selecting the order p.  
+3.Selecting specific predictors.
+
+A good model selection technique will balance `goodness of fit or simplicity` 

@@ -27,6 +27,7 @@ rm(list=ls())
 
 library(readxl)
 library(dplyr)
+library(tidyverse)
 
 ```
 ## Load dataset
@@ -58,9 +59,21 @@ summary(dataset)
 
 plot(dataset)
 ```
+[Interprating multidimention plot]
+
+## Model selection
+### Build the linear model
+
 ```{r}
-
-res <- cor(dataset)
-round(res, 2)
+power_lm_model = lm(Power~ .,data=dataset)
+summary(power_lm_model)
 ```
+From the summary, Homes
+https://jbhender.github.io/Stats506/F17/Projects/Group21_Model_Selection.html
 
+
+The following methods are used for model selection  
+1. Stepwise regression
+2. Akaike information criterion (AIC)
+
+### Stepwise Regression
