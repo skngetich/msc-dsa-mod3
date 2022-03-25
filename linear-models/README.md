@@ -36,6 +36,18 @@ where:
 - _K_: The number of model parameters.The default value of K is 2, so the model with just one prefictor will have value a K value of 2+1 = 3
 - _$ln(K)$_: The log-likelihood of the model.
 
+
+#Pricipal Componentn Analysis  
+Dimension-reduction tool that can be use to reduce  a large set of variables to a small set that still contains most of the information in the large set.
+
+PCA is for interpretation and visualization in fewer dimensional space.
+
+PCA is one of the techniques used for dimension reductions.
+
+![PCA](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.javatpoint.com%2Fdimensionality-reduction-technique&psig=AOvVaw3Q3RwcqodbUwqbJ-n9AjhG&ust=1648308068199000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKDa0qvI4fYCFQAAAAAdAAAAABAJ)
+
+
+
 # References
 
 [Understanding negative AIC values](https://www.statology.org/negative-aic/)
