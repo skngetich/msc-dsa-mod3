@@ -23,4 +23,26 @@ It can either be implicit or explicit in the following ways:
 2.An auto-regressive model requires selecting the order p.  
 3.Selecting specific predictors.
 
+
 A good model selection technique will balance `goodness of fit or simplicity` 
+
+
+Akaike Information Criterion(AIC) is a metric that is used to compare the fit of different regression models
+
+> ### How do I interpret negative AIC values?
+
+>> The lower the value for AIC, the better the fit of the model. The absolute value of the AIC value is not important. It can be positive or negative.
+
+$AIC = 2K - 2\,ln(L)$
+
+where:  
+
+- *K*: The number of model parameters.The default value of K is 2, so the model with just one prefictor will have value a K value of 2+1 = 3  - *$ln(K)$*: The log-likelihood of the model.
+
+
+
+
+# References  
+
+[Understanding negative AIC values](https://www.statology.org/negative-aic/)
+
