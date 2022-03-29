@@ -1,5 +1,7 @@
-Linear models Notes
-================
+---
+title: "Linear models Notes"
+output: github_document
+---
 
 **Explanatory Variable**  
 Also known as the `independent` or `predictor variable`, it explains
@@ -12,8 +14,7 @@ predicted or its variation is explained by the explanatory variable; in
 an experimental study, this is the outcome that is measured following
 manipulation of the explanatory variable
 
-![Response and Explanatory
-variable](https://images.deepai.org/django-summernote/2019-06-18/fe2a668a-625f-431f-9472-e177d594ba2c.png)
+![Response and Explanatory variable](https://images.deepai.org/django-summernote/2019-06-18/fe2a668a-625f-431f-9472-e177d594ba2c.png)
 
 **Example 1**
 
@@ -40,22 +41,23 @@ alternative hypothesis model.
 A good model selection technique will balance
 `goodness of fit or simplicity`
 
-## Extentions of the lineat models
+## Extentions of the linear models
 
 Linear model have highly restrictive assumptions:
 
 -   There is a linear and additive relationship between the response and
     the predictor.  
 -   additive assumptions means that the effect of changes in a predictor
-    *X*<sub>*j*</sub> on the response *Y* is independent of the values
+    $X_j$ on the response $Y$ is independent of the values
     of the other predictors.
 
 ### Removing the additive assumption
 
 Consider
-*Y* = *β*<sub>0</sub> + *β*<sub>1</sub>*X*<sub>1</sub> + *β*<sub>2</sub>*X*<sub>2</sub> + *ϵ*
+$$ Y = \beta_0 +\beta_1 X_1 +\beta_2 X_2 + \epsilon $$
 
 The model can be extended by adding `an interaction term` which is
 constructed by computing the pr product of *X*<sub>1</sub> and
 *X*<sub>2</sub>. This result in the model
-*Y* = *β*<sub>0</sub> + *β*<sub>1</sub>*X*<sub>1</sub> + *β*<sub>2</sub>*X*<sub>2</sub> + *ϵ*
+$$ Y = \beta_0 +\beta_1 X_1 +\beta_2 X_2 + \epsilon $$
+
