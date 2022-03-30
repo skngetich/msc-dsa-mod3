@@ -1,0 +1,54 @@
+---
+title: "Assignment 3"
+author: "79546 - Stephen K. Ng'etich"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6) 
+
+```
+
+# Pre-requisite
+## Load packages
+```{r message = FALSE,warning = FALSE}
+# Clear variables
+rm(list=ls())
+
+library(readxl)
+library(dplyr)
+library(tidyverse)
+library(lattice)
+library(leaps)
+library(MASS)
+
+```
+## Load dataset
+
+```{r}
+
+# Load Dataset
+dataset <- read_excel("dataset/Sales_Dataset.xlsx")
+
+```
+
+# Exploratory Data Analysis
+
+```{r}
+summary(dataset)
+```
+```{r}
+plot(dataset)
+cor(dataset)
+```
+
+```{r}
+
+lm_model = lm(Sales ~ . , data=dataset)
+summary(lm_model)
+```
+Radio, Newspaper, Billboard had p-value greater than 0.05.This mean that they are not staticaly significant in predicting Sales

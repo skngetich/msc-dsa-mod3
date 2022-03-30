@@ -8,19 +8,13 @@ output:
     number_sections: true
 ---
 
-```{r}
+```{r echo=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6) 
 
 ```
 
 # Pre-requisite
-## install package
-```{r message = FALSE,warning = FALSE}
-#install.packages("readxl")
-#install.packages('dplyr')
-```
-
-## load package
+## Load packages
 ```{r message = FALSE,warning = FALSE}
 # Clear variables
 rm(list=ls())
@@ -62,9 +56,8 @@ summary(dataset)
 
 plot(dataset)
 ```
-[Interprating multidimention plot]
 
-# Model selection
+# Model Selection
 ## Build the linear model  
 
 ```{r}
@@ -73,35 +66,37 @@ summary(power_lm_model)
 ```
 From the summary, Homes show coefficient of Rates are `NA` this means that it does not add any information to the model.
 
-The following methods are used for model selection  
-1. Stepwise regression  
-2. Akaike information criterion (AIC)
-
-## Stepwise Regression
-
 ```{r}
-formula(power_lm_model)
-```
-```{r}
+# Remove Rates from the predictor variables
 dataset1 = subset(dataset,select = -c(Rates))
 
 power_lm_model =  lm(Power~ ., data=dataset1)
 summary(power_lm_model)
 ```
 
+The following stepwise regression methods are used for model selection  
+1. Forward  
+2. Backward  
+3. Both
 
+## Forward Selection  
 ```{r}
-modelfoward =  stepAIC(power_lm_model,direction="forward",trace = FALSE)
+modelfoward =  stepAIC(power_lm_model,direction="forward",trace = TRUE)
 step(modelfoward)
 ```
+From forward selection of the optimal model is $$Power = Homes + Sequence$$ with the lowest *AIC of  -152.63* 
 
+## Backward Selection 
 ```{r}
-modelfoward =  stepAIC(power_lm_model,direction="backward",trace = FALSE)
-step(modelfoward)
+modelfoward =  stepAIC(power_lm_model,direction="backward",trace = TRUE)
 ```
 
+From backward selection,the optimal model is $$Power = Homes + Sequence$$ with the lowest *AIC of  -152.63* 
+
+
 ```{r}
-modelfoward =  stepAIC(power_lm_model,direction="both",trace = FALSE)
+modelfoward =  stepAIC(power_lm_model,direction="both",trace = TRUE)
 step(modelfoward)
 ```
+From both forward and backward selection,the optimal model is $$Power = 1.8676Homes + 0.5864Sequence - 2.6955$$ with the lowest *AIC of  -152.63* 
 
