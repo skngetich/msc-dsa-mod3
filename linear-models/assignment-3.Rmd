@@ -43,12 +43,35 @@ summary(dataset)
 ```
 ```{r}
 plot(dataset)
-cor(dataset)
 ```
+From the visual inspection of the plot, the variables are all correlated since the plot shows a linear relationship and heads on one line.
 
+## Model Selection
 ```{r}
-
 lm_model = lm(Sales ~ . , data=dataset)
 summary(lm_model)
 ```
-Radio, Newspaper, Billboard had p-value greater than 0.05.This mean that they are not staticaly significant in predicting Sales
+Radio, Newspaper and TV has p-value greater than 0.05.This mean that they are not statically significant in predicting Sales
+
+```{r}
+
+lm_model1 = lm(Sales ~BillBoard+poly(TV,degree=2,raw = TRUE), data=dataset)  
+#lm_model1 = lm(Sales ~BillBoard, data=dataset)  
+
+summary(lm_model1)
+
+```
+```{r}
+lm_model1 = lm(Sales ~ Newspaper + poly(Newspaper,raw=FALSE) , data=dataset)
+summary(lm_model1)
+```
+
+```{r}
+lm_model2 = lm(Sales ~ . + Radio*Newspaper , data=dataset)
+summary(lm_model2)
+```
+```{r}
+lm_model3 = lm(Sales ~ ., data=dataset)
+summary(lm_model1)
+```
+

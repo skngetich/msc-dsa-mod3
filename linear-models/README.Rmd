@@ -1,63 +1,92 @@
 ---
 title: "Linear models Notes"
 output: github_document
+editor_options: 
+  markdown: 
+    wrap: 80
 ---
 
 **Explanatory Variable**  
-Also known as the `independent` or `predictor variable`, it explains
-variations in the response variable; in an experimental study, it is
-manipulated by the researcher
+Also known as the `independent` or `predictor variable`, it explains variations
+in the response variable; in an experimental study, it is manipulated by the
+researcher
 
 **Response Variable**  
-Also known as the `dependent` or `outcome variable`, its value is
-predicted or its variation is explained by the explanatory variable; in
-an experimental study, this is the outcome that is measured following
-manipulation of the explanatory variable
+Also known as the `dependent` or `outcome variable`, its value is predicted or
+its variation is explained by the explanatory variable; in an experimental
+study, this is the outcome that is measured following manipulation of the
+explanatory variable
 
-![Response and Explanatory variable](https://images.deepai.org/django-summernote/2019-06-18/fe2a668a-625f-431f-9472-e177d594ba2c.png)
+![Response and Explanatory
+variable](https://images.deepai.org/django-summernote/2019-06-18/fe2a668a-625f-431f-9472-e177d594ba2c.png)
 
 **Example 1**
 
-A team of veterinarians wants to compare the effectiveness of two
-fertility treatments for pandas in captivity. The two treatments are
-in-vitro fertilization and male fertility medications. This experiment
-has one explanatory variable: type of fertility treatment. The response
-variable is a measure of fertility rate.
+A team of veterinarians wants to compare the effectiveness of two fertility
+treatments for pandas in captivity. The two treatments are in-vitro
+fertilization and male fertility medications. This experiment has one
+explanatory variable: type of fertility treatment. The response variable is a
+measure of fertility rate.
 
-`Factor variables` are categorical variables that can be either numeric
-or string variables. There are a number of advantages to converting
-categorical variables to factor variables.
+`Factor variables` are categorical variables that can be either numeric or
+string variables. There are a number of advantages to converting categorical
+variables to factor variables.
 
 ## Model Selection
 
 It is a process of selecting a model from a set of candidate models.
 
-It can either be implicit or explicit in the following ways:
-1.Hypothesis tests require selecting between a null hypothesis and
-alternative hypothesis model.  
+It can either be implicit or explicit in the following ways: 1.Hypothesis tests
+require selecting between a null hypothesis and alternative hypothesis model.  
 2.An auto-regressive model requires selecting the order p.  
 3.Selecting specific predictors.
 
-A good model selection technique will balance
-`goodness of fit or simplicity`
+A good model selection technique will balance `goodness of fit or simplicity`
 
-## Extentions of the linear models
+## Extensions of the linear models
 
 Linear model have highly restrictive assumptions:
 
--   There is a linear and additive relationship between the response and
-    the predictor.  
--   additive assumptions means that the effect of changes in a predictor
-    $X_j$ on the response $Y$ is independent of the values
-    of the other predictors.
+-   There is a linear and additive relationship between the response and the
+    predictor.  
+-   additive assumptions means that the effect of changes in a predictor $X_j$
+    on the response $Y$ is independent of the values of the other predictors.
 
 ### Removing the additive assumption
 
-Consider
-$$ Y = \beta_0 +\beta_1 X_1 +\beta_2 X_2 + \epsilon $$
+Consider $$ Y = \\beta_0 +\\beta_1 X_1 +\\beta_2 X_2 + \\epsilon $$
 
-The model can be extended by adding `an interaction term` which is
-constructed by computing the pr product of *X*<sub>1</sub> and
-*X*<sub>2</sub>. This result in the model
-$$ Y = \beta_0 +\beta_1 X_1 +\beta_2 X_2 + \epsilon $$
+The model can be extended by adding `an interaction term` which is constructed
+by computing the pr product of *X*<sub>1</sub> and *X*<sub>2</sub>. This result
+in the model $$ Y = \\beta_0 +\\beta_1 X_1 +\\beta_2 X_2 + \\epsilon $$
 
+### Interactions
+
+Interaction help us to test for an influence between the response variable as
+the relate to the common explanatory variable
+
+-   `Main effect` = Coefficient for predictors used to main interaction terms
+-   `Interaction effects` = coefficient for interaction terms
+-   `State interaction` = polynomial interactions
+
+#### Visualizing Interaction
+
+-   *No interaction* - categories have the same slope coefficient(Parallel
+    lines)
+-   *Interaction -* categories do not have the same slope coefficient
+    (non-parallel lines)
+
+![](C:/Users/steph/AppData/Local/RStudio/tmp/paste-787E2B31.png)
+
+![](C:/Users/steph/AppData/Local/RStudio/tmp/paste-D0501DE6.png)
+
+**NB:**
+
+Given the regression formula $$ Calories =\beta_0 + \beta_1 \times Carbs +
+\beta_2 \times Meat + \beta_3 \times Carbs*Meat $$
+
+where the p-value of Carbs is 0.0014, Meat is 0.7925 and the interaction between Carbs and Meat is 0.00012.Meat cannot be removed since it is in the significant interaction term.
+
+**When to include interaction term** 
+1. The interaction term should make sense conceptually. 
+2. The interaction term should be statistically significant.
