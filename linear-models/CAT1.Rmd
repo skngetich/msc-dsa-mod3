@@ -1,0 +1,143 @@
+---
+title: "CAT 2"
+author: "79546 - Stephen K. Ng'etich"
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  pdf_document:
+    toc: yes
+    toc_depth: 3
+    number_sections: yes
+---
+
+# Pre-requisite
+## load package
+
+```{r}
+# Clear variables
+rm(list=ls())
+
+library(readxl)
+library(tidyverse)
+library(caret)
+library(glmnet)
+
+## set the seed to make your partition reproducible
+set.seed(123)
+
+```
+
+## Load dataset
+
+```{r}
+
+# Load Dataset
+dataset <- read_excel("dataset/TestData.xlsx")
+```
+
+# Question
+
+## (a) Split the data set into 75% training set and 25% test set.
+
+
+```{r}
+## 75% of the sample size
+sample_size <- floor(0.75 * nrow(dataset))
+
+
+train_ind <- sample(seq_len(nrow(dataset)), size = sample_size)
+
+train <- dataset[train_ind, ]
+test <- dataset[-train_ind, ]
+```
+## (b) Fit a linear model using least squares on the training set, and report the test error obtained.
+
+```{r}
+lm_model = lm(Response ~ . , data=train)
+#summary(lm_model)
+
+predictions = predict.lm(lm_model,newdata = test)
+
+#Model performance metrics
+ml_performance.lse=data.frame( 
+            MODEL = "Least Squares",
+            s1 = R2(predictions, test$Response),
+            RMSE = RMSE(predictions, test$Response),
+            MAE = MAE(predictions, test$Response))
+
+ml_performance.lse
+```
+## (c) Fit a ridge regression model on the training set, with λ chosen by cross-validation. Report the test error obtained.
+
+```{r}
+train.matrix = model.matrix(Response~., data = train)
+test.matrix = model.matrix(Response~., data = test)
+
+#Choose lambda using cross-validation
+crossvalidation = cv.glmnet(train.matrix,train$Response,alpha=0)
+plot(crossvalidation)
+bestlamda = crossvalidation$lambda.min
+bestlamda
+```
+```{r}
+#Fit a ridge regression
+ridge_model = glmnet(train.matrix,train$Response,alpha = 0)
+#Make predictions
+ridge_predictions = predict(ridge_model,s=bestlamda,newx = test.matrix)
+#Calculate test error
+
+#Model performance metrics
+ml_performance.ridge = data.frame( 
+                        MODEL = "Ridge regression",
+            R2 = R2(ridge_predictions, test$Response),
+            RMSE = RMSE(ridge_predictions, test$Response),
+            MAE = MAE(ridge_predictions, test$Response))
+ml_performance.ridge
+
+```
+
+
+##(d) Fit a lasso model on the training set, with λ chosen by cross validation. Report the test error obtained, along with the number of non-zero coefficient estimates.
+
+```{r}
+train.matrix = model.matrix(Response~., data = train)
+test.matrix = model.matrix(Response~., data = test)
+
+#Choose lambda using cross-validation
+crossvalidation1 = cv.glmnet(train.matrix,train$Response,alpha=1)
+plot(crossvalidation)
+bestlamda1 = crossvalidation1$lambda.min
+bestlamda1
+```
+```{r}
+#Fit lasso model
+# Note alpha=1 for lasso only and can blend with ridge penalty down to
+lasso_model = glmnet(train.matrix,train$Response,alpha=1)
+#Make predictions
+lasso_predictions = predict(lasso_model,s=bestlamda1,newx=test.matrix)
+#Model performance metrics
+ml_performance.lasso = data.frame(
+  MODEL = "Lasso regression",
+  R2 = R2(lasso_predictions, test$Response),
+            RMSE = RMSE(lasso_predictions, test$Response),
+            MAE = MAE(lasso_predictions, test$Response))
+ml_performance.lasso
+```
+
+## (e) Comment on the results obtained. How accurately can we predict the response variable? Is there much difference among the test errors resulting from these three approaches? Present and discuss results for the approaches
+
+The following table represents model performance
+
+```{r}
+t = rbind(ml_performance.lse,ml_performance.lasso,ml_performance.ridge)
+knitr::kable(t,"simple")
+
+```
+The best model in predicting the responce variable is `Least Squares` since it has the least Root Mean Square Error while Ridge regression has the worst model perfomance.
+
+`Ridge Regression` has the highest margin in test errors compare to the other 2 regression models 
+
+
+
+

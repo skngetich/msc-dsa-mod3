@@ -1,0 +1,435 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{CAT 2}
+\author{79546 - Stephen K. Ng'etich}
+\date{}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={CAT 2},
+  pdfauthor={79546 - Stephen K. Ng'etich},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{pre-requisite}{%
+\section{Pre-requisite}\label{pre-requisite}}
+
+\hypertarget{load-package}{%
+\subsection{load package}\label{load-package}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Clear variables}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list=}\FunctionTok{ls}\NormalTok{())}
+
+\FunctionTok{library}\NormalTok{(readxl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'readxl' was built under R version 4.1.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'tidyverse' was built under R version 4.1.3
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.3     v dplyr   1.0.8
+## v tidyr   1.1.3     v stringr 1.4.0
+## v readr   2.0.1     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 4.1.2
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 4.1.3
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'caret' was built under R version 4.1.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'caret'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     lift
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(glmnet)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'glmnet' was built under R version 4.1.3
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:tidyr':
+## 
+##     expand, pack, unpack
+\end{verbatim}
+
+\begin{verbatim}
+## Loaded glmnet 4.1-3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# set the seed to make your partition reproducible}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{load-dataset}{%
+\subsection{Load dataset}\label{load-dataset}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load Dataset}
+\NormalTok{dataset }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"dataset/TestData.xlsx"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{question}{%
+\section{Question}\label{question}}
+
+\hypertarget{a-split-the-data-set-into-75-training-set-and-25-test-set.}{%
+\subsection{(a) Split the data set into 75\% training set and 25\% test
+set.}\label{a-split-the-data-set-into-75-training-set-and-25-test-set.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 75\% of the sample size}
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(}\FloatTok{0.75} \SpecialCharTok{*} \FunctionTok{nrow}\NormalTok{(dataset))}
+
+
+\NormalTok{train\_ind }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(dataset)), }\AttributeTok{size =}\NormalTok{ sample\_size)}
+
+\NormalTok{train }\OtherTok{\textless{}{-}}\NormalTok{ dataset[train\_ind, ]}
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ dataset[}\SpecialCharTok{{-}}\NormalTok{train\_ind, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b-fit-a-linear-model-using-least-squares-on-the-training-set-and-report-the-test-error-obtained.}{%
+\subsection{(b) Fit a linear model using least squares on the training
+set, and report the test error
+obtained.}\label{b-fit-a-linear-model-using-least-squares-on-the-training-set-and-report-the-test-error-obtained.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm\_model }\OtherTok{=} \FunctionTok{lm}\NormalTok{(Response }\SpecialCharTok{\textasciitilde{}}\NormalTok{ . , }\AttributeTok{data=}\NormalTok{train)}
+\CommentTok{\#summary(lm\_model)}
+
+\NormalTok{predictions }\OtherTok{=} \FunctionTok{predict.lm}\NormalTok{(lm\_model,}\AttributeTok{newdata =}\NormalTok{ test)}
+
+\CommentTok{\#Model performance metrics}
+\NormalTok{ml\_performance.lse}\OtherTok{=}\FunctionTok{data.frame}\NormalTok{( }
+            \AttributeTok{MODEL =} \StringTok{"Least Squares"}\NormalTok{,}
+            \AttributeTok{s1 =} \FunctionTok{R2}\NormalTok{(predictions, test}\SpecialCharTok{$}\NormalTok{Response),}
+            \AttributeTok{RMSE =} \FunctionTok{RMSE}\NormalTok{(predictions, test}\SpecialCharTok{$}\NormalTok{Response),}
+            \AttributeTok{MAE =} \FunctionTok{MAE}\NormalTok{(predictions, test}\SpecialCharTok{$}\NormalTok{Response))}
+
+\NormalTok{ml\_performance.lse}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           MODEL        s1     RMSE      MAE
+## 1 Least Squares 0.9908415 9.955736 8.279993
+\end{verbatim}
+
+\hypertarget{c-fit-a-ridge-regression-model-on-the-training-set-with-ux3bb-chosen-by-cross-validation.-report-the-test-error-obtained.}{%
+\subsection{(c) Fit a ridge regression model on the training set, with λ
+chosen by cross-validation. Report the test error
+obtained.}\label{c-fit-a-ridge-regression-model-on-the-training-set-with-ux3bb-chosen-by-cross-validation.-report-the-test-error-obtained.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train.matrix }\OtherTok{=} \FunctionTok{model.matrix}\NormalTok{(Response}\SpecialCharTok{\textasciitilde{}}\NormalTok{., }\AttributeTok{data =}\NormalTok{ train)}
+\NormalTok{test.matrix }\OtherTok{=} \FunctionTok{model.matrix}\NormalTok{(Response}\SpecialCharTok{\textasciitilde{}}\NormalTok{., }\AttributeTok{data =}\NormalTok{ test)}
+
+\CommentTok{\#Choose lambda using cross{-}validation}
+\NormalTok{crossvalidation }\OtherTok{=} \FunctionTok{cv.glmnet}\NormalTok{(train.matrix,train}\SpecialCharTok{$}\NormalTok{Response,}\AttributeTok{alpha=}\DecValTok{0}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(crossvalidation)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CAT1_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bestlamda }\OtherTok{=}\NormalTok{ crossvalidation}\SpecialCharTok{$}\NormalTok{lambda.min}
+\NormalTok{bestlamda}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.24674
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Fit a ridge regression}
+\NormalTok{ridge\_model }\OtherTok{=} \FunctionTok{glmnet}\NormalTok{(train.matrix,train}\SpecialCharTok{$}\NormalTok{Response,}\AttributeTok{alpha =} \DecValTok{0}\NormalTok{)}
+\CommentTok{\#Make predictions}
+\NormalTok{ridge\_predictions }\OtherTok{=} \FunctionTok{predict}\NormalTok{(ridge\_model,}\AttributeTok{s=}\NormalTok{bestlamda,}\AttributeTok{newx =}\NormalTok{ test.matrix)}
+\CommentTok{\#Calculate test error}
+
+\CommentTok{\#Model performance metrics}
+\NormalTok{ml\_performance.ridge }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{( }
+                        \AttributeTok{MODEL =} \StringTok{"Ridge regression"}\NormalTok{,}
+            \AttributeTok{R2 =} \FunctionTok{R2}\NormalTok{(ridge\_predictions, test}\SpecialCharTok{$}\NormalTok{Response),}
+            \AttributeTok{RMSE =} \FunctionTok{RMSE}\NormalTok{(ridge\_predictions, test}\SpecialCharTok{$}\NormalTok{Response),}
+            \AttributeTok{MAE =} \FunctionTok{MAE}\NormalTok{(ridge\_predictions, test}\SpecialCharTok{$}\NormalTok{Response))}
+\NormalTok{ml\_performance.ridge}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              MODEL        s1     RMSE      MAE
+## 1 Ridge regression 0.9809305 14.99081 11.34165
+\end{verbatim}
+
+\#\#(d) Fit a lasso model on the training set, with λ chosen by cross
+validation. Report the test error obtained, along with the number of
+non-zero coefficient estimates.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train.matrix }\OtherTok{=} \FunctionTok{model.matrix}\NormalTok{(Response}\SpecialCharTok{\textasciitilde{}}\NormalTok{., }\AttributeTok{data =}\NormalTok{ train)}
+\NormalTok{test.matrix }\OtherTok{=} \FunctionTok{model.matrix}\NormalTok{(Response}\SpecialCharTok{\textasciitilde{}}\NormalTok{., }\AttributeTok{data =}\NormalTok{ test)}
+
+\CommentTok{\#Choose lambda using cross{-}validation}
+\NormalTok{crossvalidation1 }\OtherTok{=} \FunctionTok{cv.glmnet}\NormalTok{(train.matrix,train}\SpecialCharTok{$}\NormalTok{Response,}\AttributeTok{alpha=}\DecValTok{1}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(crossvalidation)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{CAT1_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bestlamda1 }\OtherTok{=}\NormalTok{ crossvalidation1}\SpecialCharTok{$}\NormalTok{lambda.min}
+\NormalTok{bestlamda1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5597055
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Fit lasso model}
+\CommentTok{\# Note alpha=1 for lasso only and can blend with ridge penalty down to}
+\NormalTok{lasso\_model }\OtherTok{=} \FunctionTok{glmnet}\NormalTok{(train.matrix,train}\SpecialCharTok{$}\NormalTok{Response,}\AttributeTok{alpha=}\DecValTok{1}\NormalTok{)}
+\CommentTok{\#Make predictions}
+\NormalTok{lasso\_predictions }\OtherTok{=} \FunctionTok{predict}\NormalTok{(lasso\_model,}\AttributeTok{s=}\NormalTok{bestlamda1,}\AttributeTok{newx=}\NormalTok{test.matrix)}
+\CommentTok{\#Model performance metrics}
+\NormalTok{ml\_performance.lasso }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{MODEL =} \StringTok{"Lasso regression"}\NormalTok{,}
+  \AttributeTok{R2 =} \FunctionTok{R2}\NormalTok{(lasso\_predictions, test}\SpecialCharTok{$}\NormalTok{Response),}
+            \AttributeTok{RMSE =} \FunctionTok{RMSE}\NormalTok{(lasso\_predictions, test}\SpecialCharTok{$}\NormalTok{Response),}
+            \AttributeTok{MAE =} \FunctionTok{MAE}\NormalTok{(lasso\_predictions, test}\SpecialCharTok{$}\NormalTok{Response))}
+\NormalTok{ml\_performance.lasso}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              MODEL        s1     RMSE      MAE
+## 1 Lasso regression 0.9901851 10.33082 8.359939
+\end{verbatim}
+
+\hypertarget{e-comment-on-the-results-obtained.-how-accurately-can-we-predict-the-response-variable-is-there-much-difference-among-the-test-errors-resulting-from-these-three-approaches-present-and-discuss-results-for-the-approaches}{%
+\subsection{(e) Comment on the results obtained. How accurately can we
+predict the response variable? Is there much difference among the test
+errors resulting from these three approaches? Present and discuss
+results for the
+approaches}\label{e-comment-on-the-results-obtained.-how-accurately-can-we-predict-the-response-variable-is-there-much-difference-among-the-test-errors-resulting-from-these-three-approaches-present-and-discuss-results-for-the-approaches}}
+
+The following table represents model performance
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(ml\_performance.lse,ml\_performance.lasso,ml\_performance.ridge)}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(t,}\StringTok{"simple"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrrr@{}}
+\toprule
+MODEL & s1 & RMSE & MAE \\
+\midrule
+\endhead
+Least Squares & 0.9908415 & 9.955736 & 8.279993 \\
+Lasso regression & 0.9901851 & 10.330821 & 8.359939 \\
+Ridge regression & 0.9809305 & 14.990815 & 11.341649 \\
+The best model in p & redicting th & e responce v & ariable is
+\texttt{Least\ Squares} since it has the least Root Mean Square Error
+while Ridge regression has the worst model perfomance. \\
+\bottomrule
+\end{longtable}
+
+\texttt{Ridge\ Regression} has the highest margin in test errors compare
+to the other 2 regression models
+
+\end{document}
