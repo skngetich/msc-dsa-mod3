@@ -1,0 +1,76 @@
+---
+title: "Assignment 3"
+author: "79546 - Stephen K. Ng'etich"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6) 
+
+```
+
+# Pre-requisite
+## Load packages
+```{r message = FALSE,warning = FALSE}
+# Clear variables
+rm(list=ls())
+
+library(splines)
+library(npreg)
+library(ISLR)
+library(dplyr)
+library(ggplot2)
+
+```
+## Load dataset
+
+```{r}
+summary(Wage)
+dataset = Wage
+```
+
+# Exploratory Data Analysis
+
+
+# Model Selection
+
+```{r}
+lm_model =  lm(wage ~ year+age ,data = dataset)
+summary(lm_model)
+```
+
+```{r}
+# Get min/max values of age using the range() function
+agelims = Wage %>%
+    select(age) %>%
+    range
+
+# Generate a sequence of age values spanning the range
+age_grid = seq(from = min(agelims), to = max(agelims))
+
+# Fit a regression spline using basis functions
+fit = lm(wage~bs(age, knots = c(25,40,60)), data = Wage)
+
+# Predict the value of the generated ages, 
+# returning the standard error using se = TRUE
+pred = predict(fit, newdata = list(age = age_grid), se = TRUE)
+
+# Compute error bands (2*SE)
+se_bands = with(pred, cbind("upper" = fit+2*se.fit, 
+                            "lower" = fit-2*se.fit))
+
+# Plot the spline and error bands
+ggplot() +
+  geom_point(data = Wage, aes(x = age, y = wage)) +
+  geom_line(aes(x = age_grid, y = pred$fit), color = "#0000FF") + 
+  geom_ribbon(aes(x = age_grid, 
+                  ymin = se_bands[,"lower"], 
+                  ymax = se_bands[,"upper"]), 
+              alpha = 0.3) +
+  xlim(agelims)
+```
+

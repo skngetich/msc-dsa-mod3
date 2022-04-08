@@ -82,11 +82,14 @@ the relate to the common explanatory variable
 
 **NB:**
 
-Given the regression formula $$ Calories =\beta_0 + \beta_1 \times Carbs +
-\beta_2 \times Meat + \beta_3 \times Carbs*Meat $$
+Given the regression formula $$ Calories =\\beta_0 + \\beta_1 \\times Carbs +
+\\beta_2 \\times Meat + \\beta_3 \\times Carbs\*Meat $$
 
-where the p-value of Carbs is 0.0014, Meat is 0.7925 and the interaction between Carbs and Meat is 0.00012.Meat cannot be removed since it is in the significant interaction term.
+where the p-value of Carbs is 0.0014, Meat is 0.7925 and the interaction between
+Carbs and Meat is 0.00012.Meat cannot be removed since it is in the significant
+interaction term.
 
-**When to include interaction term** 
-1. The interaction term should make sense conceptually. 
-2. The interaction term should be statistically significant.
+**When to include interaction term**
+
+1.  The interaction term should make sense conceptually.
+2.  The interaction term should be statistically significant.
