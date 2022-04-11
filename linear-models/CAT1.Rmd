@@ -2,9 +2,6 @@
 title: "CAT 2"
 author: "79546 - Stephen K. Ng'etich"
 output:
-  word_document:
-    toc: yes
-    toc_depth: '3'
   pdf_document:
     toc: yes
     toc_depth: 3
