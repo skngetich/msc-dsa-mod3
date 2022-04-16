@@ -1,0 +1,46 @@
+---
+title: "CAT 1"
+output: 
+  pdf_notebook
+    extra_dependencies: ['amsmath']
+---
+
+# Q1
+# Q2
+# Q3
+# Q4
+## a 
+```{r}
+dataset = read.csv(file="dataset/body_composition.csv")
+
+```
+
+```{r}
+plot(dataset$height,dataset$weight)
+plot(dataset$weight,dataset$height)
+
+```
+
+
+# Q5
+# Q6
+## a
+pdf of poisson distribution: $$P(X=x)=\frac{\lambda^x e^{-\lambda}}{x!}$$
+THe likelihood function of the poission distribution.$$L(\lambda;x_1,..,x_n)=\prod_{j=1}^{n}\frac{\lambda^{x_j} e^{-\lambda}}{x_j!}$$
+
+The log likelihood of the functions $$ln \bigg(\prod_{j=1}^{n}\frac{\lambda^{x_j} e^{-\lambda}}{x_j!})\bigg)$$
+$$\sum_{j=1}^n ln \bigg(\frac{\lambda^{x_j} e^{-\lambda}}{x_j!}\bigg)$$
+$$\sum_{j=1}^n [ln(\lambda^{x_j})+ln(e^{-\lambda})-ln(x_j!)]$$
+$$\sum_{j=1}^n [x_jln(\lambda)-\lambda-ln(x_j!)]$$
+$$-n\lambda+ln(\lambda)\sum^n_{j=1}x_j-\sum_{j=1}^nln(x_j!)$$
+Derivative of the log likelihood
+$$\frac{d}{d\lambda} \bigg(-n\lambda+ln(\lambda)\sum^n_{j=1}x_j-\sum_{j=1}^nln(x_j!)\bigg)$$
+$$-n+\frac{1}{\lambda}\sum_{j=1}^{n}x_j$$
+Setting the derivative to zero and solving for $\lambda$
+$$-n+\frac{1}{\lambda}\sum_{j=1}^nx_j=0$$
+$$\lambda = \frac{1}{n}\sum_{j=1}^{n}x_j = \mu$$
+
+
+
+
+
