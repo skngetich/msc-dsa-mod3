@@ -1,45 +1,192 @@
 ---
 title: "CAT 1"
-output: 
-  pdf_notebook
-    extra_dependencies: ['amsmath']
+author: "79546 - Stephen Ng'etich"
+output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: 100
 ---
 
 # Q1
-# Q2
-# Q3
-# Q4
+$$\binom{10-1}{5-1}\bigg(\frac{1}{2}\bigg)^5\bigg(\frac{1}{2}\bigg)^5 =\frac{126}{1024}=\frac{63}{512}$$  
+
+
+
+# Q2    
+## a   
+Equating $E(X) = \bigg(\frac{1}{n} \sum_{i=1}^n x_i\bigg) = \overline{X}$
+$$\overline{X}= \theta\sqrt{\frac{\pi}{2}}$$ Making $\theta$ the subject of th
+formula:$$\widehat{\theta}=\overline{X}\sqrt{\frac{2}{\pi}}$$ Checking for Bias
+$E(\widehat{\theta}) = \theta$
+$$E(\widehat{\theta}) = \overline{X}\sqrt{\frac{2}{\pi}}=\sqrt{\frac{2}{\pi}}E(\overline{X}) = \frac{1}{n}\sqrt{\frac{2}{\pi}}\sum_{i=1}^{n}E(x_i)$$
+$$=\frac{1}{n}\sqrt{\frac{2}{\pi}}nE(x_i)$$
+$$=\frac{1}{n}\sqrt{\frac{2}{\pi}}\theta\sqrt{\frac{\pi}{2}} = \theta$$ The estimator is unbiased
+
+## b
+
+$$=\widehat{\sigma^2} = \frac{\widehat{\theta}^2}{2}(4-\pi) = \frac{2\overline{X^2}}{2\pi}(4-\pi) = \frac{{\overline{X}}^2}{\pi}(4-\pi)$$
+$$E(\widehat{\sigma^2} ) = \bigg(\frac{4 - \pi}{\pi}\bigg)E(\overline{X^2})$$
+$$=\bigg(\frac{4 - \pi}{\pi}\bigg)\bigg(Var(\overline{X})+(E(\overline{X}))^2\bigg)$$
+$$=\bigg(\frac{4 - \pi}{\pi}\bigg)\bigg(\frac{\theta^2(4-\pi)}{2n}+\frac{\theta^2\pi}{2}\bigg)$$   
+
+
+# Q3 
 ## a 
+The population mean and variance of gamma distribution is $\mu = \alpha\beta$ and $sigma=\alpha\beta^2$ respectively 
+The sample equivalent of the population sample mean and variance is $\mu = \overline{X}$ and $\sigma=S^2$
+
+getting the value of $\beta$:  
+$$\alpha\beta=\overline{X}$$
+$$\alpha=\frac{\overline{X}}{\beta}$$
+Substituting $\alpha$ in $S^2$
+$$S^2 =\alpha\beta^2$$
+$$S^2=\frac{\overline{X}}{\beta}\beta^2=\overline{X}\beta$$
+Get $\beta$ estimate by making it the subject of the formula
+$$\widehat{\beta} = \frac{S^2}{\overline{X}}$$
+Getting the estimator of $\beta$
+$$\alpha = \frac{\overline{X}}{\beta}$$
+Submtiting $\beta$ with the estimate $\widehat{b}$
+$$\alpha = \frac{\overline{X}}{\frac{S^2}{\overline{X}}} = \frac{\overline{X}^2}{S^2}$$
+
+
+## b
+Gamma distribution pdf is given by:
+$$f(x|\alpha,\beta) = \frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x }$$
+THe likelihood function is defined by:
+$$L(f(x|\alpha,\beta)) =\ln \bigg( \prod_{i=1} \frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x }\bigg)$$
+$$L(f(x|\alpha,\beta)) =\ln  \bigg( \frac{\beta^{n\alpha}}{(\Gamma(\alpha))^n} \prod_{i=1}^{n} x_i^{\alpha-1}e^{-\sum_{i=1}^{n}x_i\beta}\bigg)$$
+$$\ln L = n\alpha \ln \beta - n\ln(\Gamma(\alpha))+ (\alpha-1)\sum_{x=i}^{n}\ln x - \sum_{x=i}^{n}x_i\beta $$
+First partial derivative with respect to $\beta$
+
+$$\frac{d\ln L}{d\beta} = \frac{n \alpha}{\beta}-\sum_{x=i}^{n}x_i = 0$$
+Solve for $\beta$
+$$\frac{\alpha n }{\beta}= \sum_{x=i}^{n}x_i$$
+$$\frac{1}{\beta} =  \frac{\sum_{x=i}^{n}x_i}{\alpha n}$$
+$$\widehat{\beta} = \frac{\alpha}{\frac{1}{n}\sum_{x=i}^{n}x_i}=\frac{\alpha}{\overline{X}}$$
+First partial derivative with respect to $\alpha$
+$$\frac{d\ln L}{d\alpha} = n \ln \beta -\frac{n\Gamma{\alpha}^,}{\Gamma{\alpha}} + \sum_{i=1}^{n}\ln x_i = 0$$
+$$=\frac{n\Gamma{\alpha}^,}{\Gamma{\alpha}} =  n \ln \beta + \sum_{i=1}^{n}\ln x_i$$
+Dividing every term by n:
+$$=\frac{\Gamma{\alpha}^,}{\Gamma{\alpha}} =  \ln \beta + \frac{\sum_{i=1}^{n}\ln x_i}{n}$$
+## c
+$$\widehat{\beta} = \frac{S^2}{\overline{X}}$$
+Calculate $\overline{X}$:
+$$\overline{X} = \frac{1}{n}\sum_{i=1}^{n}x_i = \frac{168.5}{25}=6.74$$
+
+$$S^2 = 0.46166667$$
+$$\widehat{\beta} = \frac{0.461666667}{6.74} = 0.06849$$
+
+$$\alpha = \bigg(\frac{\overline{X}}{S}\bigg)^2$$
+$$\alpha = (\frac{6.74}{0.461666667})^2 =213.1389$$
+
+# Q4
+## a
+
+To predict weight,Weight is placed on the y-axis and height is place in the x-axis.The values of
+weight are varied as compared to the height of a person.
+
+## b
+
 ```{r}
 dataset = read.csv(file="dataset/body_composition.csv")
-
 ```
 
 ```{r}
-plot(dataset$height,dataset$weight)
-plot(dataset$weight,dataset$height)
+plot(dataset$height,dataset$weight,main ="Scatterplot of Men Weight and Height ",xlab = "Height (inches)",ylab = "Weight (lbs)")
 
 ```
+
+## c
+
+```{r}
+plot(
+  dataset$height,
+  dataset$weight,
+  main ="Scatterplot of Weight of Men Against Their Height ",
+  xlab = "Height (inches)",
+  ylab = "Weight (lbs)"
+  )
+
+lm_model = lm(weight~ height , data=dataset)
+summary(lm_model)
+abline(lm_model,v=0)
+ 
+```
+
+The Linear Regression equation for height and weight is:
+$$Weight=-119.9317\,\, + 4.272\times Height+\epsilon$$
+
+
+## d
+A slope of 4.272 represent the estimated change in weight for every one inch of height.The slope is positive hence there is a positive linear relationship between weight and height.  
+it is not appropriate to make a interpretation when the height is zero since the no person that has a height of 0.
+
+
+## e
+```{r}
+predict(lm_model,newdata = data.frame(height=c(76)))
+```
+
 
 
 # Q5
+$$MSE(\overline{Y_{str}}) = 0.36\frac{\sigma^2_A}{60}+ 0.16\frac{\sigma^2_B}{40}$$
+$$MSE(\overline{Y}) = 0.6\frac{\sigma^2_A}{100} + 0.4\frac{\sigma^2_b}{40}+ 0.24\frac{(\mu_A-\mu_B)^2}{100}$$
+
 # Q6
-## a
-pdf of poisson distribution: $$P(X=x)=\frac{\lambda^x e^{-\lambda}}{x!}$$
-THe likelihood function of the poission distribution.$$L(\lambda;x_1,..,x_n)=\prod_{j=1}^{n}\frac{\lambda^{x_j} e^{-\lambda}}{x_j!}$$
+Given
+$$X_i~N(\theta,\sigma^2)$$
+$$E(X_i) = \theta$$
+$$V(X_i) = \sigma^2$$
 
-The log likelihood of the functions $$ln \bigg(\prod_{j=1}^{n}\frac{\lambda^{x_j} e^{-\lambda}}{x_j!})\bigg)$$
-$$\sum_{j=1}^n ln \bigg(\frac{\lambda^{x_j} e^{-\lambda}}{x_j!}\bigg)$$
-$$\sum_{j=1}^n [ln(\lambda^{x_j})+ln(e^{-\lambda})-ln(x_j!)]$$
-$$\sum_{j=1}^n [x_jln(\lambda)-\lambda-ln(x_j!)]$$
-$$-n\lambda+ln(\lambda)\sum^n_{j=1}x_j-\sum_{j=1}^nln(x_j!)$$
-Derivative of the log likelihood
-$$\frac{d}{d\lambda} \bigg(-n\lambda+ln(\lambda)\sum^n_{j=1}x_j-\sum_{j=1}^nln(x_j!)\bigg)$$
-$$-n+\frac{1}{\lambda}\sum_{j=1}^{n}x_j$$
-Setting the derivative to zero and solving for $\lambda$
-$$-n+\frac{1}{\lambda}\sum_{j=1}^nx_j=0$$
-$$\lambda = \frac{1}{n}\sum_{j=1}^{n}x_j = \mu$$
 
+## a  
+Y is an unbiased estimator of $\theta$, the $E(Y) = \theta$
+$$E(Y) = \bigg( \frac{E(X_1 + X_2)}{2}\bigg)$$
+$$ = \frac{1}{2}E(X_1)+\frac{1}{2}E(X_2)$$
+$$=\frac{1}{2}\theta+\frac{1}{2}\theta$$
+$$= \theta$$
+Y is an unbiased estimator of $\theta$
+
+## b 
+
+$$Var(Y) \ge \frac{-1}{
+n\int_{-\infty}^{+\infty}\bigg(\frac{\partial^2 \ln f(x;\theta) }{\partial\theta^2}\bigg)f(x;\theta)dx
+}$$
+T
+The normal p.d.f with $\mu = \theta$
+$$f(x;\theta) = \frac{1}{\sqrt{2\pi\sigma^2}}exp\bigg(-\frac{(x-\theta)^2}{2\sigma^2}\bigg)$$
+Take the logarithm of the probability density function
+$$\ln f(x;\theta) = \ln \bigg( \frac{1}{\sqrt{2\pi\sigma^2}}exp\bigg(-\frac{(x-\theta)^2}{2\sigma^2}\bigg) \bigg)$$
+$$= -\frac{1}{2}\ln(2\pi\sigma^2) -\frac{(x-\theta)^2}{2\sigma^2}$$
+Determine the second derivative with respect to $\theta$
+$$\frac{\partial \ln f(x;\theta)}{\partial\theta}= \frac{ -2(x- \theta)}{ 2\sigma^2}$$
+$$=\frac{x-\theta}{\sigma^2}$$
+$$\frac{\partial^2 \ln f(x;\theta)}{\partial^2\theta} = \frac{1}{\sigma^2}$$
+Determining the Rao-Cramer lower bound:
+$$\int_{-\infty}^{+\infty}\bigg(\frac{\partial^2 \ln f(x;\theta)}{\partial^2\theta}\bigg) f(x;\theta)dx = \int_{-\infty}^{+\infty}\frac{1}{\sigma^2}f(x;\theta)dx $$
+$$=-\frac{1}{\sigma^2}\int_{-\infty}^{+\infty}f(x;\theta)dx$$
+$$=-\frac{1}{\sigma^2}.1 =- \frac{1}{\sigma^2}$$
+Solving Rao-Creamer lower bound:
+
+$$Var(Y) \ge \frac{-1}{n\int_{-\infty}^{+\infty}\bigg(\frac{\partial^2 \ln f(x;\theta) }{\partial\theta^2}\bigg)f(x;\theta)dx}$$
+
+$$= \frac{-1}{n\bigg(-\frac{1}{\sigma^2}\bigg)}$$
+$$=\frac{\sigma^2}{n}$$
+$$Var(Y) \ge \frac{\sigma^2}{n} $$
+
+
+## c  
+Determining the variance of Y
+$$Var(Y) = Var\bigg(\frac{X_1+X_2}{2}\bigg)$$
+$$=\bigg(\frac{1}{2}\bigg)Var(X_1) + \bigg(\frac{1}{2}\bigg)Var(X_2)$$
+$$= \frac{1}{4}\sigma^2+\frac{1}{4}\sigma^2$$
+$$= \frac{\sigma^2}{2}$$
+
+Efficiency is the Rao-Creamer lower bound to the actual variance of the random variable
+$$Efficiency =  \frac{Rao-Creamer \,\, lower \,\,bound \,\,of \,\,Y}{Var(Y)}$$
+$$= \frac{\sigma^2/n}{\sigma^2/2}$$
+$$=\frac{2}{n}$$
 
 
 
