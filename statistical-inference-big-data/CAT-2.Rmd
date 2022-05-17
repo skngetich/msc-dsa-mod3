@@ -1,0 +1,22 @@
+---
+title: "CAT 2"
+author: "79546 - Stephen Ng'etich"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Q1
+## a
+$$df = n-l-1$$
+where $l$ is the level in anova test and $n$ is the sample size
+
+$$48 = n-1-1$$
+Solve for $n$
+$$ n= 50$$
+## b  
+## c   
+## d   
+## e  
