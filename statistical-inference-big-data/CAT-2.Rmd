@@ -16,7 +16,7 @@ where $l$ is the level in anova test and $n$ is the sample size
 $$48 = n-1-1$$
 Solve for $n$
 $$ n= 50$$
-## b  
+## b    
 ## c   
 ## d   
 ## e  
