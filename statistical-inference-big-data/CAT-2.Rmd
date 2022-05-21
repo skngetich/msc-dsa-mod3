@@ -2,6 +2,8 @@
 title: "CAT 2"
 author: "79546 - Stephen Ng'etich"
 output: pdf_document
+header-includes:
+  \usepackage{booktabs}
 ---
 
 ```{r setup, include=FALSE}
@@ -15,8 +17,107 @@ where $l$ is the level in anova test and $n$ is the sample size
 
 $$48 = n-1-1$$
 Solve for $n$
-$$ n= 50$$
-## b    
-## c   
+$$ n= 50$$  
+
+## b  
+$$S  = \sqrt{MSE}$$
+$$MSE = \frac{SSE}{n-2} = \sqrt{\frac{11354}{48}} = 15.38  $$  
+
+## c  
+
+$$
+\begin{tabular}{lll}
+                                         & t-statistic & p-value          \\
+$H_0:\alpha = 0 \, , H_a: \alpha \neq 0$ & -2.601      & -0.0123          \\
+$H_0:\beta_1 = 0 \, , H_a: \beta_1 \neq 0$ & 9.464       & $1.490 * 10^{-12}$
+\end{tabular}
+$$
+
 ## d   
-## e  
+
+$$MSR  = \frac{SSR}{1} = \frac{21186}{1} = 21186$$
+$$MSR = \frac{SSE}{n-2} = \frac{11354}{48} = 236.59166$$
+$$\text{F-value} = \frac{MSR}{MSE} = \frac{21186}{236.5417} = 89.5656$$
+
+## e   
+$$R^2 = 0.6511$$  
+
+
+# Q2  
+
+$$ \frac{L(\theta_0)}{L(\theta_1)} \le k$$
+$$\frac{\prod_{i=1}^{n}2 \times x^{2-1}}{\prod_{i=1}^{n}1 \times x^{1-1}} \le k$$
+$$\frac{1}{2 \prod_{i=1}^{n}X_i} \le k$$
+Making $x$ the subject of the formula
+$$\frac{1}{2k} \le \prod_{i=1}^{n}x_i$$
+
+# Q5  
+
+$H_0$ : proposition are equal to the one provided
+$$p_1 = \frac{9}{16} = 0.5625 \; , p_2 = \frac{3}{16}=0.1875 \; ,p_3 = \frac{3}{16} = 0.1875 \; ,p_4 = \frac{1}{16} = 0.0625$$
+
+$H_a$ : at least on the $p_1$ is different
+
+Sample size: $$ = 124+30+43+11 = 208$$
+
+$$\chi^2 = \frac{(O-E)^2}{E}$$
+$$
+\begin{tabular}{llllll}
+\textbf{Dist.} & \textbf{O} & \textbf{$E=np$} & \textbf{$O-E$} & \textbf{$(O-E)^2$} & \textbf{$\frac{(O-E)^2}{E}$} \\ \hline
+0.5625         & 124        & 117             & 7              & 49                 & 0.4188                       \\
+0.1875         & 30         & 39              & -9             & 81                 & 2.0769                       \\
+0.1875         & 43         & 39              & 4              & 16                 & 0.4103                       \\
+0.0625         & 11         & 13              & -2             & 4                  & 0.3077                       \\ \hline
+Sum            & 208        &                 &                &                    & 3.2137                      
+\end{tabular}
+$$
+
+
+$df= 4-1 = 3$ and at $\alpha = 0.05$ the chi-square value is $7.81$
+
+if $\chi^2_{calc} \le \chi^2_{critical}$ we fail to reject the null hypothesis
+
+$$3.2137 \le 7.81 \; \;\text{we fail to reject the null hypothesis}$$ 
+
+
+# Q6 
+
+$H_o$ :  Choice of major is independent of the hand posture  
+$H_a$ :  Choice of major is not independent of the hand posture  
+
+$$
+\begin{tabular}{lll|l}
+                        & LH & RH & Totals \\ \hline
+\multicolumn{1}{l|}{RN} & 89 & 29 & 118    \\
+\multicolumn{1}{l|}{LI} & 5  & 4  & 9      \\
+\multicolumn{1}{l|}{LN} & 5  & 8  & 13     \\ \hline
+Totals                  & 99 & 41 & 140   
+\end{tabular}
+$$
+
+Computing Expectation using the formula $\frac{x_{\text{row total}} \times x_{\text{column total}}}{\text{sum total}}$
+
+$$
+\begin{tabular}{l|ll}
+   & LH    & RH    \\ \hline
+RN & 83.44 & 34.56 \\
+LI & 6.36  & 2.64  \\
+LN & 9.19  & 3.81 
+\end{tabular}
+$$
+
+
+
+$$\chi^2 = \sum \frac{(O-E)^2}{E}$$
+$$\chi^2 = \frac{(89-83.44)^2}{83.44} + \frac{(5-6.36)^2}{6.36} + \frac{(5-9.19)^2}{9.19} + \frac{(29-34.56)^2}{34.56} +\frac{(4-2.64)^2}{2.64} + \frac{(8-3.81)^2}{3.81} $$
+$$\chi^2 = 0.37+0.29+1.91+0.89+0.7+4.6 = 8.76$$
+
+Calculate the degrees of freedom using the formula $df= (r-1)(c-1) = (3-1)(2-1) = 2$
+
+$\chi^2_{\alpha}$ from the table at  $0.05$ with $df=2$ is $5.99$
+
+$$\chi^2_{calc} > \chi^2_{\alpha} \; \text{reject} \;\; H_0 $$
+
+
+$8.76 > 5.99$ hence reject the null hypothesis
+
