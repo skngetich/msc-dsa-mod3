@@ -1,0 +1,338 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{assignment-5}
+\author{Stephen K. Ng'etich}
+\date{}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={assignment-5},
+  pdfauthor={Stephen K. Ng'etich},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{pre-requisite}{%
+\section{Pre-requisite}\label{pre-requisite}}
+
+\hypertarget{load-packages}{%
+\subsection{Load Packages}\label{load-packages}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Clear variables}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list=}\FunctionTok{ls}\NormalTok{())}
+
+\FunctionTok{library}\NormalTok{(glmnet)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(gam)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{load-dataset}{%
+\subsection{Load Dataset}\label{load-dataset}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{475}\NormalTok{)                              }
+
+\NormalTok{dataset }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"dataset/Dataset7.xlsx"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{question}{%
+\section{Question}\label{question}}
+
+\hypertarget{split-the-data-set-into-a-training-set-and-a-test-set.}{%
+\subsection{Split the data set into a training set and a test
+set.}\label{split-the-data-set-into-a-training-set-and-a-test-set.}}
+
+The dataset is split into training and test set in the ratio of 7:3
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{index }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x=}\FunctionTok{nrow}\NormalTok{(dataset), }\AttributeTok{size=}\NormalTok{.}\DecValTok{70}\SpecialCharTok{*}\FunctionTok{nrow}\NormalTok{(dataset))}
+\NormalTok{train }\OtherTok{\textless{}{-}}\NormalTok{ dataset[index,]}
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{  dataset[}\SpecialCharTok{{-}}\NormalTok{index,]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{fit-a-linear-model-using-least-squares-on-the-training-set-and-report-the-test-error-obtained.}{%
+\subsection{Fit a linear model using least squares on the training set,
+and report the test error
+obtained.}\label{fit-a-linear-model-using-least-squares-on-the-training-set-and-report-the-test-error-obtained.}}
+
+\hypertarget{fit-the-model}{%
+\subsubsection{fit the model}\label{fit-the-model}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# fit the regression model}
+\NormalTok{lm\_model }\OtherTok{=} \FunctionTok{lm}\NormalTok{(Profit }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\AttributeTok{data =}\NormalTok{ train)}
+
+\CommentTok{\# get model summary}
+\NormalTok{lm\_model\_summary }\OtherTok{=} \FunctionTok{summary}\NormalTok{(lm\_model)}
+
+\FunctionTok{print}\NormalTok{(lm\_model\_summary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Profit ~ ., data = train)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -10.617  -3.288  -0.218   2.960  88.830 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 2764.9589   110.7827  24.958  < 2e-16 ***
+## Expenses      -4.8434     0.7798  -6.211 8.14e-10 ***
+## Adverts        6.1042     0.5563  10.974  < 2e-16 ***
+## System         0.7306     0.4493   1.626    0.104    
+## Furniture     13.5361     0.2417  56.001  < 2e-16 ***
+## Remittance     0.8179     0.6099   1.341    0.180    
+## Debts          0.2867     0.1959   1.464    0.144    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 5.281 on 867 degrees of freedom
+## Multiple R-squared:  0.9998, Adjusted R-squared:  0.9998 
+## F-statistic: 9.432e+05 on 6 and 867 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+From the fitted regression model
+\texttt{Expenses},\texttt{Adverts},\texttt{system} and
+\texttt{Furniture} are significant predictors of Profit at 95\%
+confidence interval.The estimated model has an adjusted error of 99.9\%.
+
+The linear regression can be summarized as:
+\[Profit = 2729.4862 - 5.3853\,\text{Expenses} + 6.2612\,\text{Adverts}+ 0.9028\,\text{System}+ 13.6387\,\text{Furniture}\]
+\#\#\# Calculate the Mean Squeared Error
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm\_model\_pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(lm\_model, test)}
+
+\NormalTok{lm\_model\_mse }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((lm\_model\_pred }\SpecialCharTok{{-}}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Profit)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"The Mean Square Error for the linear regression :"}\NormalTok{ ,lm\_model\_mse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The Mean Square Error for the linear regression : 21.7742
+\end{verbatim}
+
+\hypertarget{fit-a-ridge-regression-model-on-the-training-set-with-ux3bb-chosen-by-cross-validation.report-the-test-error-obtained.}{%
+\subsection{\texorpdfstring{Fit a ridge regression model on the training
+set, with \(λ\) chosen by cross-validation.Report the test error
+obtained.}{Fit a ridge regression model on the training set, with λ chosen by cross-validation.Report the test error obtained.}}\label{fit-a-ridge-regression-model-on-the-training-set-with-ux3bb-chosen-by-cross-validation.report-the-test-error-obtained.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#All values of x without the profit}
+\NormalTok{x\_train }\OtherTok{=} \FunctionTok{data.matrix}\NormalTok{(train[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{])}
+
+\CommentTok{\#Values of Y only}
+\NormalTok{y\_train }\OtherTok{=}\NormalTok{ train}\SpecialCharTok{$}\NormalTok{Profit}
+
+\CommentTok{\#Find the optimal lambda value via cross validation}
+\NormalTok{cv.out}\OtherTok{=}\FunctionTok{cv.glmnet}\NormalTok{(x\_train,y\_train,}\AttributeTok{alpha=}\DecValTok{0}\NormalTok{)}
+\NormalTok{bestlam}\OtherTok{=}\NormalTok{cv.out}\SpecialCharTok{$}\NormalTok{lambda.min}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Optimal lambda value for cross validation"}\NormalTok{,bestlam, }\StringTok{"  }\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Optimal lambda value for cross validation 42.49277
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Define lambda grid to be used through out analysis}
+\NormalTok{grid}\OtherTok{=}\DecValTok{10}\SpecialCharTok{\^{}}\FunctionTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\AttributeTok{length=}\DecValTok{100}\NormalTok{)}
+
+\CommentTok{\#Fit a ridge regression model}
+\NormalTok{ridge.mod}\OtherTok{=}\FunctionTok{glmnet}\NormalTok{(x\_train,y\_train,}\AttributeTok{alpha =} \DecValTok{0}\NormalTok{, }\AttributeTok{lambda=}\NormalTok{grid)}
+
+\NormalTok{x\_test }\OtherTok{=} \FunctionTok{data.matrix}\NormalTok{(test[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{])}
+\NormalTok{y\_test }\OtherTok{=}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Profit}
+
+\CommentTok{\#Compute the test error w/ lambda chosen by cross validation}
+\NormalTok{ridge.pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(ridge.mod,}\AttributeTok{s=}\NormalTok{bestlam,}\AttributeTok{newx=}\NormalTok{x\_test)}
+\NormalTok{ridge.mse}\OtherTok{=}\FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{((ridge.pred}\SpecialCharTok{{-}}\NormalTok{y\_test)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"The Mean Square Error for the linear regression :"}\NormalTok{ ,ridge.mse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The Mean Square Error for the linear regression : 439
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Store ridge coefficients}
+\NormalTok{ridge.coef}\OtherTok{=}\FunctionTok{predict}\NormalTok{(ridge.mod,}\AttributeTok{type=}\StringTok{"coefficients"}\NormalTok{,}\AttributeTok{s=}\NormalTok{bestlam)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{fit-a-lasso-model-on-the-training-set-with-ux3bb-chosen-by-crossvalidation.-report-the-test-error-obtained-along-with-the-number-of-non-zero-coefficient-estimates.}{%
+\subsection{\texorpdfstring{Fit a lasso model on the training set, with
+\(λ\) chosen by crossvalidation. Report the test error obtained, along
+with the number of non-zero coefficient
+estimates.}{Fit a lasso model on the training set, with λ chosen by crossvalidation. Report the test error obtained, along with the number of non-zero coefficient estimates.}}\label{fit-a-lasso-model-on-the-training-set-with-ux3bb-chosen-by-crossvalidation.-report-the-test-error-obtained-along-with-the-number-of-non-zero-coefficient-estimates.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Find the optimal lambda value via cross validation}
+\NormalTok{cv.out}\OtherTok{=}\FunctionTok{cv.glmnet}\NormalTok{(x\_train,y\_train,}\AttributeTok{alpha=}\DecValTok{1}\NormalTok{)}
+\NormalTok{bestlam}\OtherTok{=}\NormalTok{cv.out}\SpecialCharTok{$}\NormalTok{lambda.min}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Optimal lambda value for cross validation"}\NormalTok{,bestlam, }\StringTok{"  }\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Optimal lambda value for cross validation 11.28645
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Train the model}
+\NormalTok{lasso.mod}\OtherTok{=}\FunctionTok{glmnet}\NormalTok{(x\_train,y\_train,}\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{lambda=}\NormalTok{grid)}
+
+\CommentTok{\#Compute the test error}
+\NormalTok{lasso.pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(lasso.mod,}\AttributeTok{s=}\NormalTok{bestlam,}\AttributeTok{newx=}\NormalTok{x\_test)}
+\NormalTok{lasso.mse}\OtherTok{=}\FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{((lasso.pred}\SpecialCharTok{{-}}\NormalTok{y\_test)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\CommentTok{\#Store lasso coefficients}
+\NormalTok{lasso.coef}\OtherTok{=}\FunctionTok{predict}\NormalTok{(lasso.mod,}\AttributeTok{type=}\StringTok{"coefficients"}\NormalTok{,}\AttributeTok{s=}\NormalTok{bestlam)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"The Mean Square Error for the linear regression :"}\NormalTok{ ,ridge.mse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The Mean Square Error for the linear regression : 439
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Fit a PCR model on the training set, with M chosen by crossvalidation.
+  Report the test error obtained, along with the value of M selected by
+  cross-validation.\\
+\item
+  Fit a PLS model on the training set, with M chosen by crossvalidation.
+  Report the test error obtained, along with the value of M selected by
+  cross-validation.\\
+\item
+  Comment on the results obtained. How accurately can we predict the
+  number of college applications received? Is there much difference
+  among the test errors resulting from these five approaches?
+\end{enumerate}
+
+\end{document}

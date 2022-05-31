@@ -1,0 +1,133 @@
+---
+title: "assignment-5"
+author: "Stephen K. Ng'etich"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Pre-requisite
+## Load Packages
+```{r message = FALSE,warning = FALSE}
+# Clear variables
+rm(list=ls())
+
+library(glmnet)
+library(dplyr)
+library(ggplot2)
+library(gam)
+library(readxl)
+
+```
+## Load Dataset 
+
+```{r}
+set.seed(475)                              
+
+dataset <- read_excel("dataset/Dataset7.xlsx")
+```
+# Question 
+## Split the data set into a training set and a test set. 
+
+The dataset is split into training and test set in the ratio of 7:3
+
+```{r}
+
+index <- sample(x=nrow(dataset), size=.70*nrow(dataset))
+train <- dataset[index,]
+test <-  dataset[-index,]
+
+
+```
+
+## Fit a linear model using least squares on the training set, and report the test error obtained.  
+
+### fit the model
+```{r}
+# fit the regression model
+lm_model = lm(Profit ~ ., data = train)
+
+# get model summary
+lm_model_summary = summary(lm_model)
+
+print(lm_model_summary)
+
+```
+
+From the fitted regression model `Expenses`,`Adverts`,`system` and `Furniture` are significant predictors of Profit at 95% confidence interval.The estimated model has an adjusted error of 99.9%.
+
+The linear regression can be summarized as: $$Profit = 2729.4862 - 5.3853\,\text{Expenses} + 6.2612\,\text{Adverts}+ 0.9028\,\text{System}+ 13.6387\,\text{Furniture}$$
+### Calculate the Mean Squeared Error
+```{r}
+lm_model_pred <- predict(lm_model, test)
+
+lm_model_mse <- mean((lm_model_pred - test$Profit)^2)
+
+cat("The Mean Square Error for the linear regression :" ,lm_model_mse)
+
+```
+## Fit a ridge regression model on the training set, with $λ$ chosen by cross-validation.Report the test error obtained.
+
+```{r}
+#All values of x without the profit
+x_train = data.matrix(train[-1])
+
+#Values of Y only
+y_train = train$Profit
+
+#Find the optimal lambda value via cross validation
+cv.out=cv.glmnet(x_train,y_train,alpha=0)
+bestlam=cv.out$lambda.min
+
+cat("Optimal lambda value for cross validation",bestlam, "  \n")
+
+#Define lambda grid to be used through out analysis
+grid=10^seq(10,-2,length=100)
+
+#Fit a ridge regression model
+ridge.mod=glmnet(x_train,y_train,alpha = 0, lambda=grid)
+
+x_test = data.matrix(test[-1])
+y_test = test$Profit
+
+#Compute the test error w/ lambda chosen by cross validation
+ridge.pred=predict(ridge.mod,s=bestlam,newx=x_test)
+ridge.mse=round(mean((ridge.pred-y_test)^2))
+cat("The Mean Square Error for the linear regression :" ,ridge.mse)
+
+
+#Store ridge coefficients
+ridge.coef=predict(ridge.mod,type="coefficients",s=bestlam)
+
+
+```
+
+
+## Fit a lasso model on the training set, with $λ$ chosen by crossvalidation. Report the test error obtained, along with the number of non-zero coefficient estimates.  
+```{r}
+#Find the optimal lambda value via cross validation
+cv.out=cv.glmnet(x_train,y_train,alpha=1)
+bestlam=cv.out$lambda.min
+cat("Optimal lambda value for cross validation",bestlam, "  \n")
+
+#Train the model
+lasso.mod=glmnet(x_train,y_train,alpha = 1, lambda=grid)
+
+#Compute the test error
+lasso.pred=predict(lasso.mod,s=bestlam,newx=x_test)
+lasso.mse=round(mean((lasso.pred-y_test)^2))
+#Store lasso coefficients
+lasso.coef=predict(lasso.mod,type="coefficients",s=bestlam)
+cat("The Mean Square Error for the linear regression :" ,ridge.mse)
+
+```
+
+5. Fit a PCR model on the training set, with M chosen by crossvalidation. Report the
+test error obtained, along with the value of M selected by cross-validation.  
+6. Fit a PLS model on the training set, with M chosen by crossvalidation. Report the
+test error obtained, along with the value of M selected by cross-validation.  
+7. Comment on the results obtained. How accurately can we predict the number of
+college applications received? Is there much difference among the test errors
+resulting from these five approaches?  

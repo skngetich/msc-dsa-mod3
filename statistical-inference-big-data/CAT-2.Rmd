@@ -43,16 +43,39 @@ $$\text{F-value} = \frac{MSR}{MSE} = \frac{21186}{236.5417} = 89.5656$$
 $$R^2 = 0.6511$$  
 
 
-# Q2  
+# Q2    
 
 $$ \frac{L(\theta_0)}{L(\theta_1)} \le k$$
 $$\frac{\prod_{i=1}^{n}2 \times x^{2-1}}{\prod_{i=1}^{n}1 \times x^{1-1}} \le k$$
 $$\frac{1}{2 \prod_{i=1}^{n}X_i} \le k$$
 Making $x$ the subject of the formula
-$$\frac{1}{2k} \le \prod_{i=1}^{n}x_i$$
-# Q4  
+$$\frac{1}{2k} \le \prod_{i=1}^{n}x_i$$    
+
+# Q3   
+
+let $\theta_2 = \sigma^2$ and $\theta_1 = \mu$
+
+$$L(\theta) = L(\mu,\sigma^2) = \bigg( \frac{1}{\sqrt{2\pi}\sigma} \bigg)^n exp\bigg[ - \sum_{i=1}^{n}\frac{(X_i-\mu)^2}{2\sigma} \bigg]$$
+
+The Maximum Likelihood estimator the $L(\theta)$ at point $(\hat{\mu},\hat{\sigma^2})$ is $$\hat{\mu}= \overline{X} \; \text{and} \; \hat{\sigma} = \frac{1}{2}\sum_{i=1}^{n}(X_i-\hat{\mu})^2$$
+then the $L(\hat{\theta})$ is obtained by replacing $\mu$ with $\hat{\mu}$ and $\sigma^2$ with $\hat{\sigma}^2$ which gives
+
+$$L(\theta) = \bigg( \frac{1}{\sqrt{2\pi}\hat{\sigma}} \bigg)^n exp\bigg[ - \sum_{i=1}^{n}\frac{(X_i-\hat{\mu})^2}{2\hat{\sigma}^2} \bigg] = \bigg( \frac{1}{\sqrt{2\pi}\hat{\sigma}} \bigg)^n e^{-\frac{n}{2}}$$
+
+Therefore the likelihood ratio is calculated as 
+$$\wedge =\frac{L(\hat{\theta_o)}}{L(\hat{\theta)}} = \frac{\bigg( \frac{1}{\sqrt{2\pi}\hat{\sigma}} \bigg)^n e^{-\frac{n}{2}} }{
+\bigg( \frac{1}{\sqrt{2\pi}\hat{\sigma}} \bigg)^n e^{-\frac{n}{2}}} = \bigg(\frac{\hat{\sigma^2}}{\sigma_0^2} \bigg)^{\frac{n}{2}} = \bigg[\frac{\sum_{i=1}^{n}(X_i - \overline{X})^2}{\sum_{i=1}^{n}(X_i - \mu_o)^2} \bigg]^{\frac{n}{2}}  $$ 
+
+The rejection region is given by
+
+$$  \frac{\sum_{i=1}^{n}(X_i - \overline{X})^2}{\sum_{i=1}^{n}(X_i - \mu_o)^2}  < k^{\frac{2}{n}}$$   
 
 
+
+# Q4   
+
+
+## a  
 
 $$f(x;\theta) = \theta^x(1-\theta)^{1-x} \, x=0,1$$
 $$\frac{L(0.5)}{L(\theta)} \le k$$
@@ -69,7 +92,7 @@ $$\frac{(1-\theta)^y}{\theta^y} \le 32k(1-\theta)5$$
 $$ln \bigg[\frac{(1-\theta)^y }{\theta^y} \bigg] \le ln \bigg[32k(1-\theta)5 \bigg]$$
 $$ yln(1-\theta) + yln\theta \le ln32+lnk+5ln(1-\theta)$$
 $$y(ln(1-\theta) + ln\theta) \le ln32+lnk+5ln(1-\theta) $$
-$$y \le \frac{ln32+lnk+5ln(1-\theta)}{ln(1-\theta) + ln\theta}$$
+$$y \le \frac{ln32+lnk+5ln(1-\theta)}{ln(1-\theta) + ln\theta}$$  
 # Q5  
 
 $H_0$ : proposition are equal to the one provided

@@ -1,0 +1,286 @@
+---
+title: "101167 Linear Models Assignment 5"
+author: "Jeremy Gachanja"
+date: "5/27/2022"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+toc : yes
+depth : 2
+fontsize: 14pt
+
+---
+\newpage{}
+```{r setup, include=FALSE}
+library(readxl)
+data = read_excel("dataset/Dataset7.xlsx")
+```
+
+
+## a) Split the data set into a training set and a test set.
+```{r}
+set.seed(897)
+index = sample(x=nrow(data), size=0.75*nrow(data))
+train = data[index,]
+test =  data[-index,]
+
+print("After applying a 75% - 25% train test split the train dataset had 936 observations while the test dataset had 313 observations")
+
+
+```
+
+
+
+## b) Fit a linear model using least squares on the training set, and report the test error obtained.
+
+
+### (i) fitting the model on the train dataset
+```{r, echo= FALSE}
+Linear_model = lm(Profit~.,data=train)
+summary(Linear_model)
+```
+From the regression results above amongst the predictors of profit only expenses, adverts, system,furniture,debts have a significant effect on the target variable which is profit. The estimated model has an adjusted error of 99.9%.
+
+The equation that best summarizes the linear relationship between profit and the statistically significant predictors is :
+
+$$Profit = 2729.47 -5.11\text{Expenses} +  5.855\text{Adverts}  + 0.9042\text{System} +  13.7102\text{Furniture} + 0.2613\text{Debt} $$
+
+### (ii) applying the fitted model on the test data
+
+```{r, echo= FALSE}
+test$y_pred = predict.lm(Linear_model, test[-1])
+y_actual = test["Profit"]
+y_pred = test["y_pred"]
+test["LM_SE"]= ( y_actual-y_pred)**2
+MSE = mean(test$LM_SE)
+RMSE= sqrt(MSE)
+cat("The MSE is ", MSE)
+print("  ")
+cat("The RMSE is ", RMSE)
+```
+The square error for each observation is captured in the sqe column shown in the summary results above. The mean square test error is 18.65 while the root mean square error is 4.319
+
+
+## c) Fit a ridge regression model on the training set, with  chosen by cross-validation. Report the test error obtained.
+
+### (i) fitting the basic ridge regression 
+
+```{r, echo= FALSE}
+library(glmnet)
+x = data.matrix(train[-1])
+y  = train$Profit
+Ridge_regression = glmnet(x,y, alpha = 0)
+summary(Ridge_regression)
+```
+### (ii) getting the optimal lambda value using cross validation
+
+```{r, echo= FALSE}
+#perform k-fold cross-validation to find optimal lambda value
+cv_model <- cv.glmnet(x, y, alpha = 0)
+
+#find optimal lambda value that minimizes test MSE
+best_lambda <- cv_model$lambda.min
+best_lambda
+```
+The best lambda to use for the ridge regression 43.26 as shown above
+
+### (iii) getting the ridge regression lambda
+
+```{r, echo= FALSE}
+#find coefficients of best model
+best_model <- glmnet(x, y, alpha = 0, lambda = best_lambda)
+coef(best_model)
+```
+### (iv) getting the ridge regression r squared  
+
+```{r, echo= FALSE}
+#use fitted best model to make predictions
+y_predicted <- predict(Ridge_regression, s = best_lambda, newx = x)
+
+#find SST and SSE
+sst <- sum((y - mean(y))^2)
+sse <- sum((y_predicted - y)^2)
+
+#find R-Squared
+rsq <- 1 - sse/sst
+rsq
+
+```
+The ridge regression with a lambda of 43.29 yielded a train r squred of 99.78%.
+
+
+### (v) getting the test error for the ridge regression
+
+```{r, echo= FALSE}
+test["Ridge_pred"] = predict(Ridge_regression, s = best_lambda, newx = data.matrix(test[-c(1,9,8)]))
+
+yrge_pred = test["Ridge_pred"]
+
+test["RGE_SE"]= (y_actual-yrge_pred)**2
+MSErg = mean(test$RGE_SE)
+RMSErg= sqrt(MSErg)
+cat("The MSE is ", MSErg)
+print("  ")
+cat("The RMSE is ", RMSErg)
+```
+The ridge regression generates a mean square error of 355.90 and an RMSE of 18.87.
+
+## d) Fit a lasso model on the training set, with lambda chosen by crossvalidation. Report the test error obtained, along with the number of non-zero coefficient estimates.
+
+### (i) fitting the basic lasso regression 
+
+```{r, echo= FALSE}
+library(glmnet)
+x = data.matrix(train[-1])
+y  = train$Profit
+Lasso_regression = glmnet(x,y, alpha = 1)
+summary(Lasso_regression)
+```
+### (ii) getting the optimal lambda value using cross validation
+
+```{r, echo= FALSE}
+#perform k-fold cross-validation to find optimal lambda value
+cv_modellas <- cv.glmnet(x, y, alpha = 1)
+
+#find optimal lambda value that minimizes test MSE
+best_lambdalas <- cv_modellas$lambda.min
+best_lambdalas
+
+```
+From the output above, the best lambda for the lasso regression model is 11.49
+
+### (iii) getting the lasso regression coefficients
+
+```{r, echo= FALSE}
+#find coefficients of best model
+best_model_lass <- glmnet(x, y, alpha = 1, lambda = best_lambdalas)
+coef(best_model_lass)
+
+```
+
+From the above output the non zero coefficient variables are adverts and furniture. With that it is clear that expenses, system, remittance and debts do not add any information to the modelling of profits. Lasso thus helps in feature selection.
+
+### (iv) getting the lasso regression r squared  
+
+```{r, echo= FALSE}
+#use fitted best model to make predictions
+y_predicted_las <- predict(Lasso_regression, s = best_lambdalas, newx = x)
+
+#find SST and SSE
+sstls <- sum((y - mean(y))^2)
+ssels <- sum((y_predicted_las - y)^2)
+
+#find R-Squared
+rsqls <- 1 - ssels/sstls
+rsqls
+
+```
+
+The Lasso regression with a lambda of 11.4904 yielded a train r squared of 99.91
+
+### (v) getting the test error for the lasso regression
+
+
+```{r, echo= FALSE}
+test["Lass_pred"] = predict(Lasso_regression, s = best_lambdalas, newx = data.matrix(test[-c(1,9,8,10,11)]))
+
+ylso_pred = test["Lass_pred"]
+
+test["LSO_SE"]= (y_actual-ylso_pred)**2
+MSElso = mean(test$LSO_SE)
+RMSElso= sqrt(MSElso)
+cat("The MSE is ", MSElso)
+print("  ")
+cat("The RMSE is ", RMSElso)
+```
+For the Lasso regression it had an MSE of 159.5 and RMSE of 12.63.
+
+## e) Fit a PCR model on the training set, with M chosen by crossvalidation. Report the test error obtained, along with the value of M selected by cross-validation.
+
+### (i) Choosing the Number of Principal Components and analysing the PCR output to pick the optimal number of PC`s to use
+
+```{r, echo= FALSE}
+library(pls)
+#make this model reproducible
+set.seed(1)
+#fit PCR model
+PCR_model <- pcr(Profit~., data=train, scale=TRUE, validation="CV")
+summary(PCR_model)
+``` 
+
+
+On observing the Validation RMSEP the following is noted: 
+
+From the above results if the intercept term is used the model test RMSE is 433.1
+
+On adding the first principal component (pc) the rmse to 19.82, then on addng the second, third, forth, fifth and six PC the rmse goes down to 8.08, 6.72, 5.48, 5.36 and 5.36 respectively.
+
+Given that the test rmse is reducing as more PC`s are added, 6 PC`s would be the optimal PC`s needed to model the profits.
+
+On observing the training % variance explained section it is seen that on using 3 PC`s , 99.98% of the variance in profits is explained and from there it remains constant. Therefore using 3 PC`s would be the most optimal.
+
+### (ii) generating the model having the optimal number of PC`s and getting the test error
+
+
+```{r, echo= FALSE}
+
+model_PCR_fin <- pcr(Profit~., data=train, scale=TRUE, validation="CV")   
+test["PCR_pred"] =  predict(model_PCR_fin, test[-c(1,9,8,10,11)], ncomp=3)  
+
+ypcr_pred = test["PCR_pred"]
+
+test["PCR_SE"]= (y_actual-ypcr_pred)**2
+MSEpcr = mean(test$PCR_SE)
+RMSEpcr= sqrt(MSEpcr)
+cat("The MSE is ", MSEpcr)
+print("  ")
+cat("The RMSE is ", RMSEpcr)
+
+```
+The PCR model yielded an MSE of 32.79 and an RMSE of 5.73
+
+
+## f) Fit a PLS model on the training set, with M chosen by crossvalidation. Report the test error obtained, along with the value of M selected by cross-validation.
+
+### fiting the PLS model
+```{r}
+#make this model reproducible
+set.seed(1)
+#fit PCR model
+model_pls <- plsr(Profit~., data=train, scale=TRUE, validation="CV")
+summary(model_pls)
+```
+On observing the Validation RMSEP the following is noted: 
+
+From the above results if the intercept term is used the model test RMSE is 433.1
+
+On adding the first principal component (pc) the rmse to 19.81, then on addng the second, third, forth, fifth and six PC the rmse goes down to 7.15, 5.7, 5.39, 5.361 and 5.363 respectively.
+
+Given that the test rmse is reducing as more PC`s are added, 5 PC`s would be the optimal PC`s needed to model the profits since on adding the sixth PC, the test RMSE rises to 5.363.
+
+On observing the training % variance explained section it is seen that on using 3 PC`s , 99.98% of the variance in profits is explained and from there it remains constant. Therefore using 3 PC`s would be the most optimal.
+
+### (ii) generating the model having the optimal number of PC`s and getting the test error
+
+
+```{r, echo= FALSE}
+
+model_pls_fin <- pcr(Profit~., data=train, scale=TRUE, validation="CV")   
+test["PLS_pred"] =  predict(model_pls_fin, test[-c(1,9,8,10,11,12,13,14,15)], ncomp=3)  
+
+ypls_pred = test["PLS_pred"]
+
+test["PLS_SE"]= (y_actual-ypls_pred)**2
+MSEpls = mean(test$PLS_SE)
+RMSEpls= sqrt(MSEpls)
+cat("The MSE is ", MSEpls)
+print("  ")
+cat("The RMSE is ", RMSEpls)
+```
+The Partial Least Squares model yields an MSE of 32.792 with an RMSE of 5.726.
+
+## g) Comment on the results obtained. How accurately can we predict the number of college applications received? Is there much difference among the test errors resulting from these five approaches?
+
+For modeling the profits made by an organization, the model with smallest rmse would be the best, from the anlysis done the model with the smallest rmse is the linear regression with an rmse of 4.32, followed by the PCR and PSL model with an rmse of 5.726 , then the Lasso model with an rmse of 12.63 and lastly the ridge regression with the highest rmse of 18.87.
+
