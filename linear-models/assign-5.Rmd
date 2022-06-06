@@ -214,7 +214,7 @@ On observing the Validation RMSEP the following is noted:
 
 From the above results if the intercept term is used the model test RMSE is 433.1
 
-On adding the first principal component (pc) the rmse to 19.82, then on addng the second, third, forth, fifth and six PC the rmse goes down to 8.08, 6.72, 5.48, 5.36 and 5.36 respectively.
+On adding the first principal component (pc) the rmse to 19.82, then on adding the second, third, forth, fifth and six PC the rmse goes down to 8.08, 6.72, 5.48, 5.36 and 5.36 respectively.
 
 Given that the test rmse is reducing as more PC`s are added, 6 PC`s would be the optimal PC`s needed to model the profits.
 

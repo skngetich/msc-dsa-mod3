@@ -1,11 +1,20 @@
 ---
-title: "assignment-5"
-author: "Stephen K. Ng'etich"
-output: pdf_document
+title: "Assignment 5"
+author: "79546 - Stephen K. Ng'etich"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+options(knitr.table.format = function() {
+  if (knitr::is_latex_output())
+    "latex" else "pipe"
+})
 ```
 
 # Pre-requisite
@@ -14,11 +23,14 @@ knitr::opts_chunk$set(echo = TRUE)
 # Clear variables
 rm(list=ls())
 
+library(readxl)
 library(glmnet)
 library(dplyr)
 library(ggplot2)
-library(gam)
-library(readxl)
+library(caret)
+library(tidyverse)
+library(pls)
+
 
 ```
 ## Load Dataset 
@@ -28,7 +40,7 @@ set.seed(475)
 
 dataset <- read_excel("dataset/Dataset7.xlsx")
 ```
-# Question 
+# Questions  
 ## Split the data set into a training set and a test set. 
 
 The dataset is split into training and test set in the ratio of 7:3
@@ -44,7 +56,7 @@ test <-  dataset[-index,]
 
 ## Fit a linear model using least squares on the training set, and report the test error obtained.  
 
-### fit the model
+### Fit the model  
 ```{r}
 # fit the regression model
 lm_model = lm(Profit ~ ., data = train)
@@ -54,21 +66,29 @@ lm_model_summary = summary(lm_model)
 
 print(lm_model_summary)
 
+
+
 ```
 
 From the fitted regression model `Expenses`,`Adverts`,`system` and `Furniture` are significant predictors of Profit at 95% confidence interval.The estimated model has an adjusted error of 99.9%.
 
-The linear regression can be summarized as: $$Profit = 2729.4862 - 5.3853\,\text{Expenses} + 6.2612\,\text{Adverts}+ 0.9028\,\text{System}+ 13.6387\,\text{Furniture}$$
-### Calculate the Mean Squeared Error
+The linear regression can be summarized as: $$Profit = 2729.4862 - 5.3853\,\text{Expenses} + 6.2612\,\text{Adverts}+ 0.9028\,\text{System}+ 13.6387\,\text{Furniture}$$  
+
+
+### Calculate the Mean Squeared Error  
 ```{r}
 lm_model_pred <- predict(lm_model, test)
 
-lm_model_mse <- mean((lm_model_pred - test$Profit)^2)
+#Model performance metrics
+ml_performance.lse=data.frame(
+MODEL = "Least Squares",
+R2 = caret::R2(lm_model_pred, test$Profit),
+RMSE = RMSE(lm_model_pred, test$Profit),
+MAE = MAE(lm_model_pred, test$Profit))
 
-cat("The Mean Square Error for the linear regression :" ,lm_model_mse)
-
+ml_performance.lse
 ```
-## Fit a ridge regression model on the training set, with $λ$ chosen by cross-validation.Report the test error obtained.
+## Fit a ridge regression model on the training set, with $\lambda$ chosen by cross-validation.Report the test error obtained.  
 
 ```{r}
 #All values of x without the profit
@@ -94,18 +114,24 @@ y_test = test$Profit
 
 #Compute the test error w/ lambda chosen by cross validation
 ridge.pred=predict(ridge.mod,s=bestlam,newx=x_test)
-ridge.mse=round(mean((ridge.pred-y_test)^2))
-cat("The Mean Square Error for the linear regression :" ,ridge.mse)
-
 
 #Store ridge coefficients
 ridge.coef=predict(ridge.mod,type="coefficients",s=bestlam)
 
 
+#Model performance metrics
+ml_performance.ridge = data.frame(
+MODEL = "Ridge regression",
+"R2" = caret::R2(ridge.pred, y_test),
+RMSE = RMSE(ridge.pred, y_test),
+MAE = MAE(ridge.pred, y_test))
+
+print(ml_performance.ridge)
+
 ```
 
 
-## Fit a lasso model on the training set, with $λ$ chosen by crossvalidation. Report the test error obtained, along with the number of non-zero coefficient estimates.  
+## Fit a lasso model on the training set, with $\lambda$ chosen by crossvalidation. Report the test error obtained, along with the number of non-zero coefficient estimates.    
 ```{r}
 #Find the optimal lambda value via cross validation
 cv.out=cv.glmnet(x_train,y_train,alpha=1)
@@ -117,17 +143,109 @@ lasso.mod=glmnet(x_train,y_train,alpha = 1, lambda=grid)
 
 #Compute the test error
 lasso.pred=predict(lasso.mod,s=bestlam,newx=x_test)
-lasso.mse=round(mean((lasso.pred-y_test)^2))
+
 #Store lasso coefficients
 lasso.coef=predict(lasso.mod,type="coefficients",s=bestlam)
-cat("The Mean Square Error for the linear regression :" ,ridge.mse)
+lasso.coef
+
+#Model performance metrics
+ml_performance.lasso = data.frame(
+MODEL = "Lasso regression",
+R2 = caret::R2(lasso.pred, y_test),
+RMSE = RMSE(lasso.pred,y_test),
+MAE = MAE(lasso.pred, y_test))
+
+ml_performance.lasso
 
 ```
 
-5. Fit a PCR model on the training set, with M chosen by crossvalidation. Report the
-test error obtained, along with the value of M selected by cross-validation.  
-6. Fit a PLS model on the training set, with M chosen by crossvalidation. Report the
-test error obtained, along with the value of M selected by cross-validation.  
-7. Comment on the results obtained. How accurately can we predict the number of
-college applications received? Is there much difference among the test errors
-resulting from these five approaches?  
+## Fit a PCR model on the training set, with M chosen by crossvalidation. Report the test error obtained, along with the value of M selected by cross-validation.   
+
+```{r}
+set.seed(45)
+#Fit and determine M based on CV results
+pcr.fit=pcr(Profit~., data=train, scale=TRUE, validation="CV")
+summary(pcr.fit)
+
+#visualize cross-validation plots
+par(mfrow=c(1,3))
+validationplot(pcr.fit)
+validationplot(pcr.fit, val.type="MSEP")
+validationplot(pcr.fit, val.type="R2")
+
+```
+The following is noted:  
+1. if the intercept term is only used, the test RMSE is **425**  
+2. if the first PLS component is added, the test RMSE drops to **19.12**  
+3. if the second PLS component is added, the test RMSE drops to **9.053**  
+4. if the third PLS component is added, the test RMSE drops to **6.355 **  
+5. if the forth PLS component is added, the test RMSE drops to **5.410**  
+5. if the fifth PLS component is added, the test RMSE drops to **5.314**  
+
+adding PLS components add the test RMSE hence it would be optimal to only use 5 PLS components
+
+```{r}
+pcr.pred = predict(pcr.fit,test,ncomp = 5 )
+
+#Model performance metrics
+ml_performance.pcr = data.frame(
+MODEL = "PCR regression",
+R2 = caret::R2(pcr.pred, y_test),
+RMSE = RMSE(pcr.pred,y_test),
+MAE = MAE(pcr.pred, y_test))
+
+ml_performance.pcr
+
+```
+
+
+## Fit a PLS model on the training set, with M chosen by cross validation. Report the test error obtained, along with the value of M selected by cross-validation.  
+```{r}
+set.seed(4)
+#Fit and determine M based on CV results
+pls.fit=plsr(Profit~., data=train, scale=TRUE, validation="CV")
+summary(pls.fit)
+
+#visualize cross-validation plots
+par(mfrow=c(1,3))
+validationplot(pls.fit)
+validationplot(pls.fit, val.type="MSEP")
+validationplot(pls.fit, val.type="R2")
+
+```
+The lowest cross-validation error occurs when only *M=5* partial least squares squares is used.
+
+```{r}
+pls.pred = predict(pls.fit,test,ncomp = 5 )
+
+#Model performance metrics
+ml_performance.pls = data.frame(
+MODEL = "PLS regression",
+R2 = caret::R2(pls.pred, y_test),
+RMSE = RMSE(pls.pred,y_test),
+MAE = MAE(pls.pred, y_test))
+
+ml_performance.pcr
+
+```
+
+## Comment on the results obtained. How accurately can we predict the profits of the organisation? Is there much difference among the test errors resulting from these five approaches?    
+
+```{r}
+colnames(ml_performance.lasso)[2] = "R2"
+colnames(ml_performance.ridge)[2] = "R2"
+
+ r= rbind(
+  ml_performance.lse,
+  ml_performance.lasso,
+  ml_performance.ridge,
+  ml_performance.pcr,
+  ml_performance.pls)
+# Sort by R2
+sorted_ml = dplyr::arrange(r,desc(R2))
+
+
+knitr::kable(sorted_ml,"pipe")
+```
+
+Least Square is the best model to predict profit since it has the least `RMSE` while Ridge is the worst in predicting Profit since it has the highest `RMSE`
